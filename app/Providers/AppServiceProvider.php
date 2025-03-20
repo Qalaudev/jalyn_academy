@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\RoleRepository;
+use App\Repositories\RoleRepositoryInterface;
 use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryInterface;
 use App\Services\AuthService;
@@ -18,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AuthService::class, function ($app) {
             return new AuthService($app->make(UserRepositoryInterface::class));
         });
+        $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
     }
 
     /**
