@@ -17,10 +17,17 @@
 
         <li><a href="{{ route('role_index') }}" class="hover:text-blue-600">Index</a></li>
         <li><a href="{{ route('role_create') }}" class="hover:text-blue-600">Create</a></li>
+<<<<<<< HEAD
         {{--        <li><a href="{{ route('role_show') }}" class="hover:text-blue-600">Контакты</a></li>--}}
         {{--        <li><a href="{{ route('role_edit') }}" class="hover:text-blue-600">Edit</a></li>--}}
         {{--        <li><a href="{{ route('role_update') }}" class="hover:text-blue-600">Update</a></li>--}}
         {{--        <li><a href="{{ route('role_delete') }}" class="hover:text-blue-600">Delete</a></li>--}}
+=======
+{{--        <li><a href="{{ route('role_show') }}" class="hover:text-blue-600">Контакты</a></li>--}}
+{{--        <li><a href="{{ route('role_edit') }}" class="hover:text-blue-600">Edit</a></li>--}}
+{{--        <li><a href="{{ route('role_update') }}" class="hover:text-blue-600">Update</a></li>--}}
+{{--        <li><a href="{{ route('role_delete') }}" class="hover:text-blue-600">Delete</a></li>--}}
+>>>>>>> 9f09e9ddc50b7025b58da64617221b4e7c6fbc64
 
 
     </ul>
