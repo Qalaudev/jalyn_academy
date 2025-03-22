@@ -1,13 +1,11 @@
 @include('layout.header')
 
 <nav class="bg-white shadow-md p-4 flex justify-between items-center">
-    <!-- Логотип -->
     <div class="flex items-center space-x-3">
         <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="h-10 w-10">
         <span class="text-lg font-bold">Онлайн Курсы</span>
     </div>
 
-    <!-- Навигация -->
     <ul class="hidden md:flex space-x-6">
         <li><a href="{{ route('home') }}" class="hover:text-blue-600">Главная</a></li>
         <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">О нас</a></li>
@@ -21,7 +19,6 @@
 
     </ul>
 
-    <!-- Правый угол -->
     <div class="relative">
         @auth
             <div class="flex items-center space-x-3 cursor-pointer" onclick="toggleDropdown()">
