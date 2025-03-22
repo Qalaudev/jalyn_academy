@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -26,4 +27,14 @@ Route::prefix('role')->group(function () {
     Route::post('/edit/{id}', [RoleController::class, 'updateRole'])->name('role_update');
     Route::delete('/delete/{id}', [RoleController::class, 'destroyRole'])->name('role_delete');
     Route::get('/show/{id}', [RoleController::class, 'showRole'])->name('role_show');
+});
+
+Route::prefix('courses')->group(function () {
+    Route::get('/', [CourseController::class, 'index'])->name('course_index');
+    Route::get('/create', [CourseController::class, 'createCourseForm'])->name('course_create_form');
+    Route::post('/create', [CourseController::class, 'createCourse'])->name('course_create');
+    Route::get('/edit/{id}', [CourseController::class, 'editCourse'])->name('course_edit');
+    Route::put('/edit/{id}', [CourseController::class, 'updateCourse'])->name('course_update');
+    Route::delete('/delete/{id}', [CourseController::class, 'destroyCourse'])->name('course_delete');
+    Route::get('/show/{id}', [CourseController::class, 'showCourse'])->name('course_show');
 });

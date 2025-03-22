@@ -35,11 +35,10 @@
                 <span class="text-gray-700">{{ Auth::user()->name }}</span>
             </div>
 
-            <!-- Дропдаун (Только для админа) -->
-            @if(Auth::user()->role == 'admin')
+            @if(Auth::user()->role->name == 'Admin')
                 <div id="adminDropdown" class="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg hidden">
                     <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-200">Админ Панель</a>
-                    <a href="{{ route('register') }}" class="block px-4 py-2 hover:bg-gray-200">Создать курс</a>
+                    <a href="{{ route('course_create_form') }}" class="block px-4 py-2 hover:bg-gray-200">Создать курс</a>
                 </div>
             @endif
         @else
