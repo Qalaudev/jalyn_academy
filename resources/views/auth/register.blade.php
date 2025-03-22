@@ -27,9 +27,9 @@
                    class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
         </div>
         <button type="submit"
-                class="w-full bg-green-500 text-white p-3 rounded-lg font-semibold hover:bg-green-600 transition">Тіркелу</button>
+                class="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold hover:bg-blue-600 transition">Тіркелу</button>
     </form>
-    <p class="text-center text-gray-600 mt-4">Аккаунтыңыз бар ма? <a href="{{route('login')}}" class="text-green-500 font-semibold">Кіру</a></p>
+    <p class="text-center text-gray-600 mt-4">Аккаунтыңыз бар ма? <a href="{{route('login')}}" class="text-blue-500 font-semibold">Кіру</a></p>
 </div>
 </body>
 </html>
