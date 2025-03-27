@@ -21,7 +21,7 @@
         <!-- Сурет -->
         <div class="mb-4">
             <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Курстың суреті</label>
-            <input type="file" name="image" id="image" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <input type="file" name="image" id="image" accept="image/png, image/jpeg" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
         </div>
 
         <!-- Бағасы -->
