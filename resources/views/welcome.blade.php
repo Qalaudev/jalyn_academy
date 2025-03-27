@@ -1,3 +1,5 @@
+@include('layout.header')
+@include('layout.navbar')
 <!DOCTYPE html>
 <html lang="kk">
 <head>
@@ -9,15 +11,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-@include('layout.header')
-@include('layout.navbar')
 
-<div class="relative bg-cover bg-center h-screen" style="background-image: url('{{ asset('images/banner.png') }}');">
-    <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center px-4">
-        <h1 class="text-5xl font-bold text-white mb-6">Қош келдіңіз, Jalyn платформасына!</h1>
+
+<div class="relative bg-cover bg-center h-screen pt" style="background-image: url('{{ asset('images/banner.png') }}');">
+    <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center px-5">
+        <h1 class="text-5xl font-bold text-white mb-6">Jalyn платформасына қош келдіңіздер!</h1>
         <p class="text-lg text-gray-200 mb-8 max-w-2xl">
-            Бұл жерде сіз бағдарламалау курстарын тауып, үйрене аласыз. Біздің курстар
-            жаңа бастаушылардан бастап тәжірибелі мамандарға дейін арналған.
+            Бұл жерде сіз бағдарламалау курстарын тауып, үйрене аласыздар. Біздің курстар
+            жаңа бастаушыларға  тәжірибелі мамандармен оқып қазіргі таңдағы танымал тілдерді үйренуге көмектеседі .
         </p>
         <a href="/courses" class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-800 transition-all">Курстарды қарау</a>
     </div>

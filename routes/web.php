@@ -12,6 +12,7 @@ Route::get('/', function () {
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/navbar',[HomeController::class,'navbar'])->name('navbar');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 Route::get('/login',[UserController::class,'login'])->name('login');
 Route::post('/login',[UserController::class,'authenticate'])->name('authenticate');
