@@ -34,7 +34,7 @@
         <li><a href="{{ route('role_create') }}" class="hover:text-blue-600">Create</a></li>
     </ul>
 
-    <div class="relative mb-3 col-end-1">
+    <div class="relative mb-3 col-end-1 text-start">
         @auth
             <div class="flex items-center space-x-3 cursor-pointer" onclick="toggleDropdown()">
                 <img src="{{ Auth::user()->avatar ?? asset('images/default-avatar.jpg') }}" alt="User Avatar" class="h-10 w-10 rounded-full border">
