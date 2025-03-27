@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Jalyn - бағдарламалау курстарын үйрену платформасы. Жаңадан бастаушылар мен тәжірибелі мамандарға арналған курстар.">
     <title>Jalyn - Бағдарламалау курстары</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -37,7 +37,19 @@
         </a>
     </div>
 </div>
-
+<div class="container mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold text-center mb-6">Пайдаланушылардың пікірлері</h2>
+    <div class="space-y-6 max-w-3xl mx-auto">
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <p class="text-gray-700 italic">"Jalyn платформасы маған бағдарламалауды үйренуге көмектесті! Материалдар өте түсінікті, ал оқыту жүйесі ыңғайлы. Курс аяқталған соң сертификат алдым, бұл менің мансабыма үлкен көмек болды. Рақмет сіздерге!"</p>
+            <p class="text-gray-900 font-semibold mt-2">- Аружан К.</p>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <p class="text-gray-700 italic">"Керемет платформа! Курстар сапалы, ал оқытушылар өте тәжірибелі. Практикалық тапсырмалар арқылы білімімді жетілдірдім. Ұсынамын!"</p>
+            <p class="text-gray-900 font-semibold mt-2">- Ержан Т.</p>
+        </div>
+    </div>
+</div>
 <div class="container mx-auto px-4 py-10">
     <h2 class="text-3xl font-bold text-center mb-6">Жиі қойылатын сұрақтар</h2>
     <div class="space-y-4 max-w-3xl mx-auto">

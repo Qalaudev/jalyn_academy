@@ -7,11 +7,11 @@
     </div>
 
     <ul class="hidden md:flex space-x-6">
-        <li><a href="{{ route('home') }}" class="hover:text-blue-600">Главная</a></li>
-        <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">О нас</a></li>
-        <li><a href="{{ route('course_index') }}" class="hover:text-blue-600">Курсы</a></li>
-        <li><a href="{{ route('role_index') }}" class="hover:text-blue-600">Index</a></li>
-        <li><a href="{{ route('role_create') }}" class="hover:text-blue-600">Create</a></li>
+        <li><a href="{{ route('home') }}" class="hover:text-blue-600">Басты Бет</a></li>
+        <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">Біз туралы</a></li>
+        <li><a href="{{ route('course_index') }}" class="hover:text-blue-600">Курстар</a></li>
+{{--        <li><a href="{{ route('role_index') }}" class="hover:text-blue-600">Index</a></li>--}}
+{{--        <li><a href="{{ route('role_create') }}" class="hover:text-blue-600">Create</a></li>--}}
     </ul>
 
     <div class="relative">
