@@ -3,76 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jalyn - бағдарламалау курстарын үйрену платформасы. Жаңадан бастаушылар мен тәжірибелі мамандарға арналған курстар.">
+    <title>Jalyn - Бағдарламалау курстары</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Басты бет</title>
-    <style>
-        .hidden { display: none; }
-    </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
-
-{{-- Навбар --}}
+<body>
 @include('layout.header')
+@include('layout.navbar')
 
-<nav class="bg-white shadow-md p-4 flex justify-between items-center">
-    <div class="flex items-center space-x-3">
-        <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="h-10 w-10">
-        <span class="text-lg font-bold">Онлайн Курсы</span>
-    </div>
-
-    {{-- Бургер-меню для мобильных --}}
-    <button id="burger" class="md:hidden text-gray-700 focus:outline-none">
-        ☰
-    </button>
-
-    <ul id="nav-menu" class="hidden md:flex space-x-6">
-        <li><a href="{{ route('home') }}" class="hover:text-blue-600">Главная</a></li>
-        <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">О нас</a></li>
-        <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">Курсы</a></li>
-        <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">Контакты</a></li>
-        <li><a href="{{ route('role_index') }}" class="hover:text-blue-600">Index</a></li>
-        <li><a href="{{ route('role_create') }}" class="hover:text-blue-600">Create</a></li>
-    </ul>
-
-    <div class="relative mb-3 col-end-1 text-start">
-        @auth
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="toggleDropdown()">
-                <img src="{{ Auth::user()->avatar ?? asset('images/default-avatar.jpg') }}" alt="User Avatar" class="h-10 w-10 rounded-full border">
-                <span class="text-gray-700">{{ Auth::user()->name }}</span>
-            </div>
-            @if(Auth::user()->role->name == 'Admin')
-                <div id="adminDropdown" class="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg hidden">
-                    <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-200">Админ Панель</a>
-{{--                    <a href="{{ route('course_create_form') }}" class="block px-4 py-2 hover:bg-gray-200">Создать курс</a>--}}
-                </div>
-            @endif
-        @else
-            <a href="{{ route('login') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Войти</a>
-        @endauth
-    </div>
-</nav>
-
-{{-- Контент страницы --}}
-<div class="flex flex-col justify-center items-center text-center flex-grow px-4">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h2 class="text-xl font-bold text-gray-800 mb-4">Online Platform: <span class="text-blue-600">Jalyn</span></h2>
-        <div class="flex flex-col space-y-3">
-            <a href="{{ route('login') }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md w-full text-center">Кіру </a>
-            <a href="{{ route('register') }}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md w-full text-center">Тіркелу </a>
-        </div>
+<div class="relative bg-cover bg-center h-screen" style="background-image: url('{{ asset('images/banner.png') }}');">
+    <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center px-4">
+        <h1 class="text-5xl font-bold text-white mb-6">Қош келдіңіз, Jalyn платформасына!</h1>
+        <p class="text-lg text-gray-200 mb-8 max-w-2xl">
+            Бұл жерде сіз бағдарламалау курстарын тауып, үйрене аласыз. Біздің курстар
+            жаңа бастаушылардан бастап тәжірибелі мамандарға дейін арналған.
+        </p>
+        <a href="/courses" class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-800 transition-all">Курстарды қарау</a>
     </div>
 </div>
 
-{{-- Скрипты --}}
-<script>
-    function toggleDropdown() {
-        document.getElementById('adminDropdown').classList.toggle('hidden');
-    }
+<div class="container mx-auto px-4 py-10 text-center">
+    <h2 class="text-3xl font-bold mb-6">Бізді әлеуметтік желілерде табыңыз</h2>
+    <div class="flex justify-center space-x-6">
+        <a href="https://facebook.com/jalyn" class="text-blue-600 text-3xl hover:text-blue-800 transition-all duration-300">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://twitter.com/jalyn" class="text-blue-400 text-3xl hover:text-blue-600 transition-all duration-300">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://instagram.com/jalyn" class="text-pink-600 text-3xl hover:text-pink-800 transition-all duration-300">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+</div>
 
-    document.getElementById('burger').addEventListener('click', function () {
-        document.getElementById('nav-menu').classList.toggle('hidden');
-    });
-</script>
-
+<div class="container mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold text-center mb-6">Жиі қойылатын сұрақтар</h2>
+    <div class="space-y-4 max-w-3xl mx-auto">
+        <details class="bg-white shadow-md rounded-lg p-4 cursor-pointer">
+            <summary class="font-semibold">Курстарға қалай тіркелуге болады?</summary>
+            <p class="text-gray-600 mt-2">Курстарға тіркелу үшін аккаунт ашып, өзіңізге ұнаған курсты таңдауыңыз керек.</p>
+        </details>
+        <details class="bg-white shadow-md rounded-lg p-4 cursor-pointer">
+            <summary class="font-semibold">Курстардың бағасы қандай?</summary>
+            <p class="text-gray-600 mt-2">Әр курс әртүрлі бағада. Кейбір курстар тегін, ал кейбіреулері ақылы.</p>
+        </details>
+        <details class="bg-white shadow-md rounded-lg p-4 cursor-pointer">
+            <summary class="font-semibold">Сертификат ала аламын ба?</summary>
+            <p class="text-gray-600 mt-2">Иә, курсты сәтті аяқтағаннан кейін сертификат беріледі.</p>
+        </details>
+    </div>
+</div>
 </body>
 </html>
