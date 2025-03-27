@@ -28,7 +28,7 @@ class UserController extends Controller
         ]);
 
         if ($this->authService->login($request->only('email', 'password'))) {
-            return redirect()->route('home');
+            return redirect()->route('navbar');
         }
         return redirect()->route('login')->withErrors(['email' => 'Кіру деректері дұрыс емес!']);
     }
@@ -49,7 +49,7 @@ class UserController extends Controller
 
         if ($this->authService->register($request->only('name', 'email', 'password'))) {
             // Тіркелу сәтті болса, home бетіне өту
-            return redirect()->route('home')->with('success', 'Тіркелу сәтті өтті!');
+            return redirect()->route('navbar')->with('success', 'Тіркелу сәтті өтті!');
         }
 
         return redirect()->route('login')->with('error', 'Тіркелу сәтсіз болды.');
