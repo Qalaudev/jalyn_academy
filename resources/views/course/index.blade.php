@@ -20,6 +20,7 @@
                 <h2 class="text-xl font-semibold mt-4">{{ $course->title }}</h2>
                 <p class="text-gray-700 mt-2">{{ Str::limit($course->description, 100) }}</p>
                 <p class="text-gray-800 font-bold mt-2">Бағасы: {{ $course->price }} ₸</p>
+                @if(Auth::user()->role->name == 'Admin')
                 <div class="mt-4 flex justify-between items-center">
                     <a href="{{ route('course_show', $course->id) }}" class="text-blue-600 hover:underline">Толығырақ</a>
                     <a href="{{ route('course_edit', $course->id) }}" class="text-yellow-600 hover:underline">Өңдеу</a>
@@ -29,6 +30,7 @@
                         <button type="submit" class="text-red-600 hover:underline">Жою</button>
                     </form>
                 </div>
+                @endif
             </div>
         @endforeach
     </div>

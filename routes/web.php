@@ -4,6 +4,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,8 +27,8 @@ Route::prefix('role')->group(function () {
     Route::get('/edit/{id}', [RoleController::class, 'editRole'])->name('role_edit');
     Route::post('/edit/{id}', [RoleController::class, 'updateRole'])->name('role_update');
     Route::delete('/delete/{id}', [RoleController::class, 'destroyRole'])->name('role_delete');
-    Route::get('/show/{id}', [RoleController::class, 'showRole'])->name('role_show');
 });
+    Route::get('/role/show/{id}', [RoleController::class, 'showRole'])->name('role_show');
 
 Route::prefix('courses')->group(function () {
     Route::get('/', [CourseController::class, 'index'])->name('course_index');

@@ -1,5 +1,6 @@
 @include('layout.header')
 
+@if(Auth::user()->role->name == 'Admin')
 <div class="container mx-auto px-4 py-6">
     <h1 class="text-2xl font-bold mb-6">Курс қосу</h1>
     <form action="{{ route('course_create') }}" method="POST" enctype="multipart/form-data" class="max-w-md bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -37,3 +38,4 @@
         </div>
     </form>
 </div>
+@endif

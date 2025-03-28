@@ -12,10 +12,10 @@
         <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">Курсы</a></li>
         <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">Контакты</a></li>
 
-
-        <li><a href="{{ route('role_index') }}" class="hover:text-blue-600">Index</a></li>
-        <li><a href="{{ route('role_create') }}" class="hover:text-blue-600">Create</a></li>
-
+        @if(Auth::user()->role->name == 'Admin')
+            <li><a href="{{ route('role_index') }}" class="hover:text-blue-600">role index</a></li>
+            <li><a href="{{ route('role_create') }}" class="hover:text-blue-600">role create</a></li>
+        @endif
 
     </ul>
 

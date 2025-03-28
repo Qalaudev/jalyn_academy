@@ -1,5 +1,5 @@
 @include('layout.header')
-
+@if(Auth::user()->role->name == 'Admin')
 <div class="container mx-auto px-4 py-6">
     <h1 class="text-3xl font-bold mb-6">Курс өңдеу</h1>
 
@@ -39,3 +39,4 @@
         </div>
     </form>
 </div>
+@endif
