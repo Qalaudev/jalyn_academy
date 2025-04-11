@@ -13,7 +13,7 @@
         <img src="{{asset('images/java.svg')}}" alt="Java" class="absolute right-320 bottom-10 w-48 animate-spin">
 
         <!-- Мәтін -->
-        <div class="text-center max-w-2xl px-4">
+        <div class="text-center max-w-2xl px-4" >
             <h1 class="text-5xl font-extrabold leading-tight">
                 JALYN ACADEMY
             </h1>
@@ -25,7 +25,7 @@
             </p>
 
             <!-- Батырма -->
-            <button class="mt-6 px-6 py-3 bg-cyan-400 text-slate-900 font-semibold rounded hover:bg-cyan-500 transition">
+            <button id="scroll-btn" class="mt-6 px-6 py-3 bg-cyan-400 text-slate-900 font-semibold rounded hover:bg-cyan-500 transition">
                 Получить консультацию
             </button>
         </div>
@@ -285,7 +285,7 @@
             </div>
         </div>
 
-        <div class="max-w-[1399px] mx-auto px-4 py-16">
+        <div id="feedback" class="max-w-[1399px] mx-auto px-4 py-16">
             <div class="flex flex-col md:flex-row gap-10 items-start">
                 <!-- Text section -->
                 <div class="w-full md:w-1/2">
@@ -315,7 +315,7 @@
                             <label class="block text-[#E0F2FE] mb-1">Хабарлама</label>
                             <textarea rows="4" class="w-full px-4 py-2 rounded-lg bg-[#243447] text-white border border-[#3C4F63] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]" placeholder="Қысқаша хабарлама..."></textarea>
                         </div>
-                        <button type="submit" class="bg-[#2563EB] hover:bg-[#1E40AF] text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-300">Жіберу</button>
+                        <button type="submit" class="bg-teal-500 hover:bg-[#1E40AF] text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-300">Жіберу</button>
                     </form>
                 </div>
             </div>
@@ -332,8 +332,9 @@
             </svg>
         </button>
     </div>
-
-
+    <div class="bg-[#1A2533]">
+        @include('layout.footer')
+    </div>
 </body>
 
 </html>
@@ -356,5 +357,8 @@
                 minusIcon.classList.remove('hidden');
             }
         });
+    });
+    document.getElementById('scroll-btn').addEventListener('click', function () {
+        document.getElementById('feedback').scrollIntoView({ behavior: 'smooth' });
     });
 </script>
