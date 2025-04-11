@@ -122,7 +122,7 @@
             <div class="w-64 h-110 group transform transition-transform duration-300 hover:-rotate-1">
                 <div class="bg-[#1E1E2F] border border-[#4C6FFF] rounded-3xl p-6 h-full flex flex-col shadow-md hover:shadow-lg hover:shadow-[#4C6FFF]/40 transition-shadow duration-300 text-white">
                     <p class="text-sm text-[#F5F5F7] mb-6">
-                        Для меня курсы в Bitlab это было просто мечтой о бутерброде с обучением, а путь к своей цели-возможность попасть в сферу IT лучшего места, я стараюсь выбрать самые лучшие места действительно за них платить. Получив базовые знания в битлаб, я уже через 3 месяца после окончания 1 месячного курса обучения получил свой первый офер в Альфа банк. Некоторыми материалами пользуюсь до сих пор.
+                        Для меня курсы в JALYN это было просто мечтой о бутерброде с обучением, а путь к своей цели-возможность попасть в сферу IT лучшего места, я стараюсь выбрать самые лучшие места действительно за них платить. Получив базовые знания в битлаб, я уже через 3 месяца после окончания 1 месячного курса обучения получил свой первый офер в Альфа банк. Некоторыми материалами пользуюсь до сих пор.
                     </p>
                     <div class="mt-auto flex items-center">
                         <div class="w-10 h-10 rounded-full bg-[#4C6FFF] mr-3"></div>
@@ -154,7 +154,7 @@
             <div class="w-64 h-110 group transform transition-transform duration-300 hover:-rotate-1">
                 <div class="bg-[#1E1E2F] border border-[#4C6FFF] rounded-3xl p-6 h-full flex flex-col shadow-md hover:shadow-lg hover:shadow-[#4C6FFF]/40 transition-shadow duration-300 text-white">
                     <p class="text-sm text-[#F5F5F7] mb-6">
-                        В первых месяцах учебы в BITLAB было сложно. Задачи казались невозможными для решения. Однако благодаря тренеру, я нашла в себе силы перебороть страх, после его слов мотивацию старалась решать все задачи и усваивать материал. Через 6 месяцев успешно завершила курс и получила предложение пройти стажировку в компании ALABS!
+                        В первых месяцах учебы в JALYN было сложно. Задачи казались невозможными для решения. Однако благодаря тренеру, я нашла в себе силы перебороть страх, после его слов мотивацию старалась решать все задачи и усваивать материал. Через 6 месяцев успешно завершила курс и получила предложение пройти стажировку в компании ALABS!
                     </p>
                     <div class="mt-auto flex items-center">
                         <div class="w-10 h-10 rounded-full bg-[#4C6FFF] mr-3">
@@ -188,7 +188,7 @@
             <div class="w-64 h-110 group transform transition-transform duration-300 hover:-rotate-1">
                 <div class="bg-[#1E1E2F] border border-[#4C6FFF] rounded-3xl p-6 h-full flex flex-col shadow-md hover:shadow-lg hover:shadow-[#4C6FFF]/40 transition-shadow duration-300 text-white">
                     <p class="text-sm text-[#F5F5F7] mb-6">
-                        Я учился в школе BitLab на QA-программистов и у меня под болышей мнений тем что даже сложные концепции становятся мне понятными. Благодаря сильному ментору я получил знания и основы язык и получил уверенность в решении реальных задач.
+                        Я учился в школе JALYN на QA-программистов и у меня под болышей мнений тем что даже сложные концепции становятся мне понятными. Благодаря сильному ментору я получил знания и основы язык и получил уверенность в решении реальных задач.
                     </p>
                     <div class="mt-auto flex items-center">
                         <div class="w-10 h-10 rounded-full bg-[#4C6FFF] mr-3"></div>
@@ -215,6 +215,146 @@
         </button>
     </div>
 
+    <div class="container mx-auto px-4 py-16">
+        <!-- FAQ аккордеон -->
+        <div class="max-w-[1370px] mx-auto text-white">
+
+            <!-- Вопрос 1 -->
+            <div class="mb-4">
+                <div class="border border-gray-700 rounded-xl">
+                    <div class="flex justify-between items-center p-6 cursor-pointer toggle-accordion">
+                        <h3 class="text-xl font-medium">Сколько часов в неделю мне нужно будет уделять курсу?</h3>
+                        <button class="bg-teal-500 w-12 h-12 rounded-xl flex items-center justify-center icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white plus-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white minus-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="px-6 pb-6 hidden content">
+                        <p>Среднее время, которое потребуется для прохождения курса — от 6 до 10 часов в неделю. Это включает просмотр лекций, выполнение домашних заданий и участие в воркшопах.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Вопрос 2 -->
+            <div class="mb-4">
+                <div class="border border-gray-700 rounded-xl">
+                    <div class="flex justify-between items-center p-6 cursor-pointer toggle-accordion">
+                        <h3 class="text-xl font-medium">Насколько быстро я смогу трудоустроиться после завершения курса?</h3>
+                        <button class="bg-teal-500 w-12 h-12 rounded-xl flex items-center justify-center icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white plus-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white minus-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="px-6 pb-6 content">
+                        <p class="mb-4">
+                            77% наших выпускников находят работу в течение 1-2 месяцев после окончания курса, а некоторые получают предложения сразу. Всё зависит от вас и вашей способности к самопрезентации. Курс построен так, что выпускники, успешно завершившие финальный проект, готовы к трудоустройству без особых сложностей.
+                        </p>
+                        <p>
+                            После окончания курса вы также получаете доступ в наш Telegram-канал с актуальными вакансиями от партнеров и компаний. Если у вас возникнут сложности с поиском работы, мы предлагаем возможность пройти стажировку в нашей академии.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Вопрос 3 -->
+            <div class="mb-4">
+                <div class="border border-gray-700 rounded-xl">
+                    <div class="flex justify-between items-center p-6 cursor-pointer toggle-accordion">
+                        <h3 class="text-xl font-medium">В каком формате проходит обучение?</h3>
+                        <button class="bg-teal-500 w-12 h-12 rounded-xl flex items-center justify-center icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white plus-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white minus-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="px-6 pb-6 hidden content">
+                        <p>Обучение проходит онлайн, с доступом к записям занятий, чатам с наставниками и живыми Zoom-сессиями для практики и разбора вопросов.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-[1399px] mx-auto px-4 py-16">
+            <div class="flex flex-col md:flex-row gap-10 items-start">
+                <!-- Text section -->
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-4xl font-bold text-[#E0F2FE] mb-4">Біздің командаға қосылыңыз!</h2>
+                    <p class="text-[#B3C5D6] text-lg mb-6">
+                        Біз талантты және мақсатқа ұмтылған адамдарды іздейміз. Төмендегі форманы толтырып, бізбен байланысқа шығыңыз!
+                    </p>
+                    <ul class="list-disc list-inside text-[#B3C5D6] space-y-2">
+                        <li>Ыңғайлы жұмыс уақыты</li>
+                        <li>Қашықтан жұмыс істеу мүмкіндігі</li>
+                        <li>Тәжірибелі менторлар</li>
+                    </ul>
+                </div>
+
+                <!-- Form section -->
+                <div class="w-full md:w-1/2 bg-[#1A2533] p-6 rounded-xl shadow-lg">
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-[#E0F2FE] mb-1">Атыңыз</label>
+                            <input type="text" class="w-full px-4 py-2 rounded-lg bg-[#243447] text-white border border-[#3C4F63] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]" placeholder="Атыңызды жазыңыз" />
+                        </div>
+                        <div>
+                            <label class="block text-[#E0F2FE] mb-1">Электронды пошта</label>
+                            <input type="email" class="w-full px-4 py-2 rounded-lg bg-[#243447] text-white border border-[#3C4F63] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]" placeholder="email@site.kz" />
+                        </div>
+                        <div>
+                            <label class="block text-[#E0F2FE] mb-1">Хабарлама</label>
+                            <textarea rows="4" class="w-full px-4 py-2 rounded-lg bg-[#243447] text-white border border-[#3C4F63] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]" placeholder="Қысқаша хабарлама..."></textarea>
+                        </div>
+                        <button type="submit" class="bg-[#2563EB] hover:bg-[#1E40AF] text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-300">Жіберу</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Кнопка вверх -->
+    <div class="fixed bottom-6 right-6">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+            </svg>
+        </button>
+    </div>
+
+
 </body>
 
 </html>
+<script>
+    document.querySelectorAll('.toggle-accordion').forEach((toggle) => {
+        toggle.addEventListener('click', () => {
+            const content = toggle.parentElement.querySelector('.content');
+            const plusIcon = toggle.querySelector('.plus-icon');
+            const minusIcon = toggle.querySelector('.minus-icon');
+
+            const isOpen = !content.classList.contains('hidden');
+
+            document.querySelectorAll('.content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.plus-icon').forEach(i => i.classList.remove('hidden'));
+            document.querySelectorAll('.minus-icon').forEach(i => i.classList.add('hidden'));
+
+            if (!isOpen) {
+                content.classList.remove('hidden');
+                plusIcon.classList.add('hidden');
+                minusIcon.classList.remove('hidden');
+            }
+        });
+    });
+</script>
