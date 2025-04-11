@@ -20,6 +20,8 @@ Route::post('/login',[UserController::class,'authenticate'])->name('authenticate
 Route::get('/register',[UserController::class,'register'])->name('register');
 Route::post('/register',[UserController::class,'authorization'])->name('authorization');
 
+Route::post('/logout',[UserController::class,'logout'])->name('logout');
+
 Route::prefix('role')->group(function () {
     Route::get('/', [RoleController::class, 'index'])->name('role_index');
     Route::get('/create', [RoleController::class, 'createRoleForm'])->name('role_create_form');

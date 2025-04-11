@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -53,6 +54,12 @@ class UserController extends Controller
         }
 
         return redirect()->route('login')->with('error', 'Тіркелу сәтсіз болды.');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('home');
     }
 
 }
