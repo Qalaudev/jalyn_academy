@@ -29,26 +29,23 @@ class CourseController extends Controller
      */
     public function createCourse(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'price' => 'required|numeric|min:0',
+            'description' => 'required',
+            'duration_weeks' => 'required|integer',
+            'schedule' => 'required|string',
+            'level' => 'required|string',
+            'format' => 'required|string',
+            'start_date' => 'required|date',
+            'spots_left' => 'required|integer',
+            'code' => 'nullable|string',
+            'price' => 'required|integer',
         ]);
 
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('courses', 'public');
-        }
+        Course::create($data);
+        $courses = Course::latest()->get();
 
-        Course::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'image' => $imagePath,
-            'price' => $request->price,
-        ]);
-
-        return redirect()->back()->with('success', 'Курс сәтті қосылды!');
+        return view('welcome', compact('courses'));
     }
 
 

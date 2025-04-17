@@ -9,17 +9,25 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('image')->nullable();
-            $table->decimal('price', 8, 2)->default(0);
+            $table->integer('duration_weeks');
+            $table->string('schedule');
+            $table->string('level');
+            $table->string('format');
+            $table->date('start_date');
+            $table->integer('spots_left')->default(0);
+            $table->string('code')->nullable();
+            $table->integer('price');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

@@ -33,41 +33,25 @@
     <div class="container mx-auto px-4 py-10 text-white">
         <h1 class="text-5xl font-bold mb-10 text-white">Наши курсы</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Java Developer Card -->
-            <div class="bg-[#1e293b] border border-[#334155] rounded-2xl p-6">
-                <h2 class="text-2xl font-semibold mb-2">Java Developer</h2>
-                <p class="text-gray-400 mb-4">Курс для обучения студентов не имеющих опыта в программировании до уровня Junior Java-разработчик</p>
-                <div class="flex flex-wrap gap-2 mb-4">
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">24 недели</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">3 раза в неделю с 19:00 до 21:00</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">С нуля</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Гибридный формат обучения</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Старт: 12.05.2025</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Осталось: <span class="text-cyan-400">6 мест</span></span>
-                </div>
-                <div class="flex justify-between items-end">
-                    <div class="bg-red-600 px-4 py-1 rounded-full text-white font-semibold">0-0-12</div>
-                    <div class="text-2xl font-bold text-cyan-400">690 000 ₸</div>
-                </div>
-            </div>
-
             <!-- Advanced Java Developer Card -->
+            @foreach($courses as $course)
             <div class="bg-[#1e293b] border border-[#334155] rounded-2xl p-6">
-                <h2 class="text-2xl font-semibold mb-2">Advanced Java Developer</h2>
-                <p class="text-gray-400 mb-4">Курс для повышения навыков действующих Junior Java разработчиков до уровня Middle Java разработчик.</p>
+                <h2 class="text-2xl font-semibold mb-2">{{$course->title}}</h2>
+                <p class="text-gray-400 mb-4">{{$course->description}}</p>
                 <div class="flex flex-wrap gap-2 mb-4">
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">12 недель</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">2 раза в неделю с 19:00 до 21:00</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Junior уровень</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">ONLINE формат обучения</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Старт: 23.01.2025</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Осталось: <span class="text-cyan-400">7 мест</span></span>
+                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Недельи: {{$course->duration_weeks}}</span>
+                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">{{$course->schedule}}</span>
+                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Уровень: {{$course->level}}</span>
+                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Формат: {{$course->format}}</span>
+                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Старт: {{$course->start_date}}</span>
+                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Осталось: <span class="text-cyan-400">{{$course->spots_left}}</span></span>
                 </div>
                 <div class="flex justify-between items-end">
                     <div class="bg-red-600 px-4 py-1 rounded-full text-white font-semibold">0-0-12</div>
-                    <div class="text-2xl font-bold text-cyan-400">570 000 ₸</div>
+                    <div class="text-2xl font-bold text-cyan-400">{{$course->price}} ₸</div>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
 

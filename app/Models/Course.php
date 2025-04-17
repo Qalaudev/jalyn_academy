@@ -9,7 +9,14 @@ class Course extends Model
     protected $fillable = [
         'title',
         'description',
-        'image',
-        'price'
+        'duration_weeks',
+        'schedule',
+        'level',
+        'format',
+        'start_date',
+        'spots_left',
+        'code',
+        'price',
+        'is_active'
     ];
 }

@@ -15,22 +15,11 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         @foreach($courses as $course)
-            <div class="bg-white shadow-md rounded p-4">
-                <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}" class="w-full h-48 object-cover rounded">
-                <h2 class="text-xl font-semibold mt-4">{{ $course->title }}</h2>
-                <p class="text-gray-700 mt-2">{{ Str::limit($course->description, 100) }}</p>
-                <p class="text-gray-800 font-bold mt-2">Бағасы: {{ $course->price }} ₸</p>
-                @if(Auth::user()->role->name == 'Admin')
-                <div class="mt-4 flex justify-between items-center">
-                    <a href="{{ route('course_show', $course->id) }}" class="text-blue-600 hover:underline">Толығырақ</a>
-                    <a href="{{ route('course_edit', $course->id) }}" class="text-yellow-600 hover:underline">Өңдеу</a>
-                    <form action="{{ route('course_delete', $course->id) }}" method="POST" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:underline">Жою</button>
-                    </form>
-                </div>
-                @endif
+            <div class="p-4 border rounded mb-2">
+                <h2 class="font-bold">{{ $course->title }}</h2>
+                <p>{{ $course->description }}</p>
+                <p><strong>Бағасы:</strong> {{ $course->price }} ₸</p>
+                <a href="{{ route('courses.edit', $course->id) }}" class="text-blue-500">Өңдеу</a>
             </div>
         @endforeach
     </div>

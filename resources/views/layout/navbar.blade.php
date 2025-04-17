@@ -5,13 +5,16 @@
         {{-- Логотип + Мәзірлер --}}
         <div class="flex items-center space-x-8">
             {{-- Логотип --}}
-            <div class="flex items-center space-x-3">
-                <img src="{{ asset('images/jalyn_logo.jpg') }}" alt="Logo" class="h-10 w-10">
-                <span class="text-lg font-bold">Онлайн Курсы</span>
+            <div class="flex items-center gap-3">
+                <a href="{{ route('home') }}" class="flex items-center gap-2">
+                    <img src="{{ asset('images/jalyn_logo.jpg') }}" alt="Logo" class="h-10 w-10 rounded-full object-cover">
+                    <span class="text-lg font-bold text-gray-800">Онлайн Курсы</span>
+                </a>
             </div>
 
+
             {{-- Мәзірлер --}}
-            <ul class="hidden md:flex space-x-6">
+            <ul class="hidden md:flex space-x-6 font-semibold">
                 <li><a href="{{ route('home') }}" class="hover:text-blue-600">Главная</a></li>
                 <li><a href="{{ route('home') }}" class="hover:text-blue-600">Наши курсы</a></li>
                 <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">О нас</a></li>
