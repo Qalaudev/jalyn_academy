@@ -16,7 +16,7 @@
             {{-- Мәзірлер --}}
             <ul class="hidden md:flex space-x-6 font-semibold">
                 <li><a href="{{ route('home') }}" class="hover:text-blue-600">Главная</a></li>
-                <li><a href="{{ route('home') }}" class="hover:text-blue-600">Наши курсы</a></li>
+                <li><a href="{{ route('course_index') }}" class="hover:text-blue-600">Наши курсы</a></li>
                 <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">О нас</a></li>
                 <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">Курсы</a></li>
                 <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">Контакты</a></li>
