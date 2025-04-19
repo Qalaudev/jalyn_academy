@@ -29,6 +29,14 @@ class UserController extends Controller
         ]);
 
         if ($this->authService->login($request->only('email', 'password'))) {
+
+            $user = auth()->user();
+
+            if ($user->role->name == 'Admin') {
+                return redirect()->route('admin.dashboard');
+            } else if ($user->role->name == 'Student') {
+                return redirect()->route('home');
+            }
             return redirect()->route('navbar');
         }
         return redirect()->route('login')->withErrors(['email' => 'Кіру деректері дұрыс емес!']);

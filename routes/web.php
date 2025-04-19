@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -41,3 +41,7 @@ Route::prefix('courses')->group(function () {
     Route::delete('/delete/{id}', [CourseController::class, 'destroyCourse'])->name('course_delete');
     Route::get('/show/{id}', [CourseController::class, 'showCourse'])->name('course_show');
 });
+
+Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
+Route::get('/admin/users',[AdminController::class,'users'])->name('admin.users');
+Route::get('/admin/courses',[AdminController::class,'courses'])->name('admin.courses');

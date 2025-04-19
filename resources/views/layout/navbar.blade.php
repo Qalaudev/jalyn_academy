@@ -16,7 +16,9 @@
             {{-- Мәзірлер --}}
             <ul class="hidden md:flex space-x-6 font-semibold">
                 <li><a href="{{ route('home') }}" class="hover:text-blue-600">Главная</a></li>
-                <li><a href="{{ route('course_index') }}" class="hover:text-blue-600">Наши курсы</a></li>
+                @if(Auth::user()?->role?->name === 'Admin')
+                    <li><a href="{{ route('course_index') }}" class="hover:text-blue-600">Наши курсы</a></li>
+                @endif
                 <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">О нас</a></li>
                 <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">Курсы</a></li>
                 <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">Контакты</a></li>
@@ -30,7 +32,7 @@
 
         <div class="relative flex items-center space-x-4">
             @auth
-                @if(Auth::user()?->role?->name === 'Admin')
+                @if(Auth::user())
                     <div class="relative inline-block text-left">
                         <div onclick="toggleDropdown()" class="flex items-center space-x-3 cursor-pointer">
                             <img src="{{ Auth::user()->avatar ?? asset('images/default-avatar.jpg') }}"
@@ -42,7 +44,7 @@
                         <div id="adminDropdown"
                              class="absolute right-0 top-full mt-2 w-48 bg-white border rounded-lg shadow-lg hidden z-50">
                             @if(Auth::user()?->role?->name === 'Admin')
-                                <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-200">Админ Панель</a>
+                                <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-200">Админ Панель</a>
                                 <a href="{{ route('course_create_form') }}" class="block px-4 py-2 hover:bg-gray-200">Создать курс</a>
                             @endif
                             <form method="POST" action="{{ route('logout') }}">
