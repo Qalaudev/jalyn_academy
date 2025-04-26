@@ -15,7 +15,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        $users = User::all();
+        return view('admin.index', compact('users'));
     }
 
     /**
@@ -34,5 +35,25 @@ class AdminController extends Controller
     {
         $courses = Course::all();
         return view('admin.courses.courses',compact('courses'));
+    }
+
+
+    public function editCourses(User $user)
+    {
+        $courses = Course::all();
+        $userCourses = $user->courses()->pluck('course_id')->toArray();
+        return view('admin.courses.editUserCourse',compact('courses','userCourses','user'));
+    }
+
+    public function updateCourses(Request $request, User $user)
+    {
+        $user->courses()->sync($request->courses);
+        return redirect()->route('admin.dashboard')->with('success','Courses updated successfully');
+    }
+
+    public function userCourses(User $user)
+    {
+        $courses = $user->courses()->get();
+        return view('admin.users.userCourses',compact('courses','user'));
     }
 }

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\CourseUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -47,4 +46,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
     Route::get('/admin/users',[AdminController::class,'users'])->name('admin.users');
     Route::get('/admin/courses',[AdminController::class,'courses'])->name('admin.courses');
+
+    Route::get('/admin/users/{user}/courses', [AdminController::class, 'userCourses'])->name('admin.users.userCourses');
+    Route::get('/admin/users/{user}/edit-courses', [AdminController::class, 'editCourses'])->name('admin.users.editCourses');
+    Route::post('/admin/users/{user}/update-courses', [AdminController::class, 'updateCourses'])->name('admin.users.updateCourses');
+
 });

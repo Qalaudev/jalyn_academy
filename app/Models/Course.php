@@ -19,4 +19,10 @@ class Course extends Model
         'price',
         'is_active'
     ];
+
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
