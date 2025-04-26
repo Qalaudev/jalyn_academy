@@ -6,6 +6,7 @@ use App\Models\c;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -33,37 +34,5 @@ class AdminController extends Controller
     {
         $courses = Course::all();
         return view('admin.courses.courses',compact('courses'));
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(c $c)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(c $c)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, c $c)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(c $c)
-    {
-        //
     }
 }

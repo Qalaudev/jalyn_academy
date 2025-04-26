@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -42,6 +43,8 @@ Route::prefix('courses')->group(function () {
     Route::get('/show/{id}', [CourseController::class, 'showCourse'])->name('course_show');
 });
 
-Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
-Route::get('/admin/users',[AdminController::class,'users'])->name('admin.users');
-Route::get('/admin/courses',[AdminController::class,'courses'])->name('admin.courses');
+Route::middleware('auth')->group(function () {
+    Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
+    Route::get('/admin/users',[AdminController::class,'users'])->name('admin.users');
+    Route::get('/admin/courses',[AdminController::class,'courses'])->name('admin.courses');
+});
