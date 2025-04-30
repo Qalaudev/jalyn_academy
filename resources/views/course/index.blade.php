@@ -38,10 +38,14 @@
 
                         <div class="text-lg font-bold text-green-600 mb-3">Бағасы: {{ number_format($course->price, 0, ',', ' ') }} ₸</div>
 
-                        <a href="{{ route('course_edit', $course->id) }}"
-                           class="inline-block text-white bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded-xl text-sm">
-                            Өңдеу
-                        </a>
+                        @auth()
+                            @if(auth()->user()->isAdmin())
+                                <a href="{{ route('course_edit', $course->id) }}"
+                                   class="inline-block text-white bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded-xl text-sm">
+                                    Өңдеу
+                                </a>
+                            @endif
+                        @endauth
                     </div>
                 @endforeach
             </div>

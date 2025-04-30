@@ -12,7 +12,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
+        $courses = auth()->user()->courses;
         return view('course.index', compact('courses'));
     }
 
