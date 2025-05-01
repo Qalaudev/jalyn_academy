@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\c;
 use App\Models\Course;
+use App\Models\TrainingProgram;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,4 +57,29 @@ class AdminController extends Controller
         $courses = $user->courses()->get();
         return view('admin.users.userCourses',compact('courses','user'));
     }
+
+
+    public function coursesShow($id){
+        $course = Course::findOrFail($id);
+        return view('admin.courses.coursesShow',compact('course'));
+    }
+
+
+    public function courseTrainingProgram(Request $request, Course $course)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+        ]);
+
+        TrainingProgram::create([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'course_id' => $course->id,
+        ]);
+
+        return redirect()->back()->with('success', 'Программа обучения сохранена!');
+    }
+
+
 }

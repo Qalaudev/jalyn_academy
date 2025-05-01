@@ -7,12 +7,10 @@
 <body class="bg-slate-900 min-h-screen flex flex-col">
     <div class="text-slate-100 min-h-screen flex items-center justify-center relative overflow-hidden">
 
-        <!-- Анимацияланған иконкалар -->
         <img src="{{asset('images/figma.svg')}}" alt="Figma" class="absolute left-100 top-1/4 w-32 animate-bounce">
         <img src="{{asset('images/golang.svg')}}" alt="Go" class="absolute right-200 top-10 w-48 animate-pulse">
         <img src="{{asset('images/java.svg')}}" alt="Java" class="absolute right-320 bottom-10 w-48 animate-spin">
 
-        <!-- Мәтін -->
         <div class="text-center max-w-2xl px-4" >
             <h1 class="text-5xl font-extrabold leading-tight">
                 JALYN ACADEMY
@@ -24,7 +22,6 @@
                 <b>Обучайся, развивайся и строй успешную карьеру в IT!</b>
             </p>
 
-            <!-- Батырма -->
             <button id="scroll-btn" class="mt-6 px-6 py-3 bg-cyan-400 text-slate-900 font-semibold rounded hover:bg-cyan-500 transition">
                 Получить консультацию
             </button>
@@ -122,7 +119,7 @@
             <div class="w-64 h-110 group transform transition-transform duration-300 hover:-rotate-1">
                 <div class="bg-[#1E1E2F] border border-[#4C6FFF] rounded-3xl p-6 h-full flex flex-col shadow-md hover:shadow-lg hover:shadow-[#4C6FFF]/40 transition-shadow duration-300 text-white">
                     <p class="text-sm text-[#F5F5F7] mb-6">
-                        2019 сделал команда Алматы турында образование мектеб функц стандарттизация оты, иқаең хабж өлшем кесу осы емхаөа жрнал. Бизнес программамен бастап үстермеше жабын бүкіл академ дамиды тарабынан да қоғамда тұрды ашадын. Сабаq под организация бірнеше өтеді мигразиялар тұрлерінің болады dr біздің.
+                        2019 жылы Алматы қаласында білім беру саласы бойынша мектеп функцияларын стандарттау мақсатында арнайы команда құрылды. Бұл топ оқу процесін оңтайландыру мен сапасын арттыру бағытында жұмыс жүргізді. Сонымен қатар, бизнес бағдарламалары енгізіліп, академиялық даму мен қоғам алдындағы жауапкершілік арта түсті. Сабақтар бірнеше ұйымда өткізіліп, миграциялық үрдістердің түрлі формалары қарастырылды.
                     </p>
                     <div class="mt-auto flex items-center">
                         <div class="w-10 h-10 rounded-full bg-[#4C6FFF] mr-3"></div>
@@ -316,6 +313,46 @@
             </svg>
         </button>
     </div>
+
+    <!-- Chat Widget HTML -->
+    <div id="chat-widget" class="fixed bottom-4 right-4 z-50">
+        <button onclick="toggleChat()" class="bg-gradient-to-r from-indigo-500 to-blue-600 text-white p-3 rounded-full shadow-2xl hover:scale-110 transition transform duration-300">
+            🤖
+        </button>
+    </div>
+
+    <!-- Chat Window -->
+    <div id="chat-window" class="hidden fixed bottom-24 right-4 w-80 max-w-sm h-[480px] bg-white shadow-2xl rounded-2xl flex flex-col z-50 border border-gray-200 overflow-hidden animate__animated animate__fadeInUp">
+        <!-- Header -->
+        <div class="relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-center py-3 px-4 font-semibold text-lg">
+            AI Чат
+            <button onclick="toggleChat()" class="absolute right-3 top-3 text-white hover:text-gray-300 text-sm">✖</button>
+        </div>
+
+        <!-- Messages -->
+        <div id="chat-messages" class="flex-1 px-4 py-3 overflow-y-auto text-sm space-y-3 bg-gray-50">
+            <!-- Хабарламалар осында шығады -->
+        </div>
+
+        <!-- Input -->
+        <div class="p-3 bg-white border-t border-gray-200 flex items-center space-x-2">
+            <input
+                id="chat-input"
+                type="text"
+                placeholder="Хабарлама жаз..."
+                class="flex-1 text-sm px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                onkeydown="if(event.key==='Enter'){ sendMessage(); }"
+            >
+            <button
+                onclick="sendMessage()"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-sm rounded-full transition"
+            >
+                Жіберу
+            </button>
+        </div>
+    </div>
+
+
     <div class="bg-[#1A2533]">
         @include('layout.footer')
     </div>
@@ -345,4 +382,49 @@
     document.getElementById('scroll-btn').addEventListener('click', function () {
         document.getElementById('feedback').scrollIntoView({ behavior: 'smooth' });
     });
+
+    const toggleChat = () => {
+        const chatWindow = document.getElementById('chat-window');
+        chatWindow.classList.toggle('hidden');
+    };
+
+    const sendMessage = () => {
+        const input = document.getElementById('chat-input');
+        const message = input.value.trim();
+        if (!message) return;
+
+        const messagesDiv = document.getElementById('chat-messages');
+
+        const userMsg = document.createElement('div');
+        userMsg.className = 'text-right';
+        userMsg.innerHTML = `<span class="inline-block bg-gray-200 px-3 py-2 rounded">${message}</span>`;
+        messagesDiv.appendChild(userMsg);
+
+        // Scroll төменге
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+        input.value = '';
+
+        // Бэкендке сұраныс жіберу (осы жерден өзіңнің Laravel route-ыңмен жалғастырасың)
+        fetch('/ai-message', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ message: message })
+        })
+            .then(res => res.json())
+            .then(data => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'text-left';
+                botMsg.innerHTML = `<span class="inline-block bg-blue-100 px-3 py-2 rounded">${data.reply}</span>`;
+                messagesDiv.appendChild(botMsg);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            })
+            .catch(err => {
+                console.error('AI жауап қатпады', err);
+            });
+    };
+
 </script>

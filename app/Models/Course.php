@@ -25,4 +25,16 @@ class Course extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function trainingProgram()
+    {
+        return $this->hasOne(TrainingProgram::class);
+    }
+
+    public function trainingPrograms()
+    {
+        return $this->hasMany(TrainingProgram::class);
+    }
+
+
 }
