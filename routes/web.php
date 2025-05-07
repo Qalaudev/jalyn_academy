@@ -53,5 +53,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/users/{user}/courses', [AdminController::class, 'userCourses'])->name('admin.users.userCourses');
     Route::get('/admin/users/{user}/edit-courses', [AdminController::class, 'editCourses'])->name('admin.users.editCourses');
     Route::post('/admin/users/{user}/update-courses', [AdminController::class, 'updateCourses'])->name('admin.users.updateCourses');
-
 });
+
+    Route::get('/course/{id}/learn',[CourseController::class,'courseLearn'])->name('course.learn');

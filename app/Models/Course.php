@@ -36,5 +36,9 @@ class Course extends Model
         return $this->hasMany(TrainingProgram::class);
     }
 
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
 
 }

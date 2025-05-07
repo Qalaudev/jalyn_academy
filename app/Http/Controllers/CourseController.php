@@ -105,4 +105,11 @@ class CourseController extends Controller
     }
 
 
+    public function courseLearn($id)
+    {
+        $course = Course::with('lessons')->findOrFail($id);
+        return view('course.learn', compact('course'));
+    }
+
+
 }
