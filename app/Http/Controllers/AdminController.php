@@ -70,12 +70,14 @@ class AdminController extends Controller
         $validated = $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
+            'video_url' =>  'required',
         ]);
 
         TrainingProgram::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
             'course_id' => $course->id,
+            'video_url' => $validated['video_url'],
         ]);
 
         return redirect()->back()->with('success', 'Программа обучения сохранена!');

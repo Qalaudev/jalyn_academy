@@ -44,6 +44,16 @@
             </div>
         </div>
 
+        <div class="sm:col-span-2">
+            <label for="video_url" class="block text-sm font-medium text-gray-900">
+                Ссылка на видео с YouTube (доступ только по ссылке)
+            </label>
+            <div class="mt-2">
+                <textarea name="video_url" id="video_url" rows="3" cols="30"
+                          class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm resize-none"></textarea>
+            </div>
+        </div>
+
         <button type="submit"
                 class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 transition duration-300 ease-in-out focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Добавить
@@ -70,6 +80,21 @@
                 </div>
                 <div class="px-6 pb-6 hidden content">
                     <p>{{ $program->description }}</p>
+
+                    @if($program->video_url)
+                        @php
+                            $embedUrl = str_replace("watch?v=", "embed/", $program->video_url);
+                        @endphp
+                        <iframe
+                            width="560"
+                            height="315"
+                            src="{{ $embedUrl }}"
+                            title="{{ $program->name }}"
+                            frameborder="0"
+                            allowfullscreen
+                            class="w-full rounded-lg shadow-lg mt-4"
+                        ></iframe>
+                    @endif
                 </div>
             </div>
         @endforeach

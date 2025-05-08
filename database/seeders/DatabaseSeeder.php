@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleTableSeeder::class,
             UsersTableSeeder::class,
+            TrainingProgramSeeder::class
         ]);
     }
 }

@@ -10,7 +10,8 @@ class TrainingProgram extends Model
     protected $fillable = [
       'name',
       'description',
-      'course_id'
+      'course_id',
+      'video_url'
     ];
 
 
