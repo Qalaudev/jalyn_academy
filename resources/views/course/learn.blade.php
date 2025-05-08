@@ -44,21 +44,24 @@
                     @endif
                 </div>
             @endforeach
+            <div class="flex justify-center py-8 bg-gray-50 min-h-screen">
+                <div class="w-full max-w-7xl bg-white rounded-lg shadow-lg flex">
+                    <main class="flex-1 p-8 rounded-r-lg">
+                        <h1 class="text-3xl font-bold mb-4">PHP Compiler</h1>
+                        <form id="php-compiler-form">
+                            @csrf
+                            <textarea id="php-code" class="w-full h-40 p-4 bg-gray-800 text-white rounded-lg mb-4" placeholder="Введите ваш PHP код здесь..."></textarea>
+                            <button onclick="executePHP(event)" class="bg-green-600 text-white py-2 px-4 rounded-lg">Run PHP</button>
+                            <div id="output" class="mt-4 bg-gray-800 text-white p-4 rounded-lg hidden"></div>
+                        </form>
+                    </main>
+                </div>
+            </div>
         </main>
     </div>
 </div>
 
 <script>
-    function toggleAccordion(element) {
-        const content = element.nextElementSibling;
-        const plusIcon = element.querySelector('.plus-icon');
-        const minusIcon = element.querySelector('.minus-icon');
-
-        content.classList.toggle('hidden');
-        plusIcon.classList.toggle('hidden');
-        minusIcon.classList.toggle('hidden');
-    }
-
     function toggleProgram(programId) {
         const allPrograms = document.querySelectorAll('.content');
         allPrograms.forEach(program => program.classList.add('hidden'));
@@ -68,4 +71,25 @@
         }
     }
 
+    function executePHP(event) {
+        event.preventDefault();
+        const code = document.getElementById('php-code').value;
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        fetch('/execute-php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': token
+            },
+            body: JSON.stringify({ code })
+        })
+            .then(response => response.text())
+            .then(output => {
+                const outputDiv = document.getElementById('output');
+                outputDiv.innerHTML = output;
+                outputDiv.classList.remove('hidden');
+            })
+            .catch(error => console.error('Error executing PHP:', error));
+    }
 </script>

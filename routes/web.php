@@ -5,6 +5,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -56,3 +57,17 @@ Route::middleware('auth')->group(function () {
 });
 
     Route::get('/course/{id}/learn',[CourseController::class,'courseLearn'])->name('course.learn');
+
+    Route::post('/execute-php', function (Request $request) {
+        $code = $request->input('code');
+        if (!str_contains($code, '<?php')) {
+            $code = "<?php " . $code;
+        }
+        $tempFile = storage_path('app/temp_php.php');
+        file_put_contents($tempFile, $code);
+        ob_start();
+        include $tempFile;
+        $output = ob_get_clean();
+        unlink($tempFile);
+        return $output;
+    });
