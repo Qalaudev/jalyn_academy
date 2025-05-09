@@ -3,6 +3,9 @@
     <div class="w-full max-w-7xl bg-white rounded-lg shadow-lg flex">
         <aside class="w-64 bg-gray-100 border-r border-gray-300 rounded-l-lg">
             <ul class="mt-8 space-y-1 text-gray-700">
+                <li class="block py-2 px-4 bg-green-600 text-white rounded-lg font-semibold">
+                    <a href="{{ route('course_index') }}">Басты бет</a>
+                </li>
                 <li>
                     <a href="#" class="block py-2 px-4 bg-green-600 text-white rounded-lg font-semibold">{{$course->title}}</a>
                 </li>
@@ -21,8 +24,9 @@
             </ul>
         </aside>
         <main class="flex-1 p-8 rounded-r-lg">
-            <h1 id="program-title" class="text-3xl font-bold mb-4">{{$course->title}}</h1>
+            <h1 class="text-3xl font-bold mb-4">{{$course->title}}</h1>
             <p id="program-description" class="text-gray-600 mb-4">Выберите программу для просмотра.</p>
+
             @foreach($course->trainingPrograms as $program)
                 <div id="program-{{ $program->id }}" class="px-6 pb-6 hidden content">
                     <p>{{ $program->description }}</p>
@@ -42,22 +46,32 @@
                             ></iframe>
                         </div>
                     @endif
+
+                    @if(str_contains($course->title, 'PHP'))
+                        <div class="mt-8">
+                            <h2 class="text-2xl font-bold mb-4">PHP Compiler</h2>
+                            <form id="php-compiler-form">
+                                @csrf
+                                <textarea id="php-code" class="w-full h-40 p-4 bg-gray-800 text-white rounded-lg mb-4" placeholder="Введите ваш PHP код здесь..."></textarea>
+                                <button onclick="executePHP(event)" class="bg-green-600 text-white py-2 px-4 rounded-lg">Run PHP</button>
+                                <div id="output" class="mt-4 bg-gray-800 text-white p-4 rounded-lg hidden"></div>
+                            </form>
+                        </div>
+                    @elseif(str_contains($course->title, 'Python'))
+                        <div class="mt-8">
+                            <h2 class="text-2xl font-bold mb-4">Python Compiler</h2>
+                            <form id="python-compiler-form">
+                                @csrf
+                                <textarea id="python-code" class="w-full h-40 p-4 bg-gray-800 text-white rounded-lg mb-4" placeholder="Введите ваш Python код здесь..."></textarea>
+                                <button onclick="executePython(event)" class="bg-blue-600 text-white py-2 px-4 rounded-lg">Run Python</button>
+                                <div id="python-output" class="mt-4 bg-gray-800 text-white p-4 rounded-lg hidden"></div>
+                            </form>
+                        </div>
+                    @endif
                 </div>
             @endforeach
-            <div class="flex justify-center py-8 bg-gray-50 min-h-screen">
-                <div class="w-full max-w-7xl bg-white rounded-lg shadow-lg flex">
-                    <main class="flex-1 p-8 rounded-r-lg">
-                        <h1 class="text-3xl font-bold mb-4">PHP Compiler</h1>
-                        <form id="php-compiler-form">
-                            @csrf
-                            <textarea id="php-code" class="w-full h-40 p-4 bg-gray-800 text-white rounded-lg mb-4" placeholder="Введите ваш PHP код здесь..."></textarea>
-                            <button onclick="executePHP(event)" class="bg-green-600 text-white py-2 px-4 rounded-lg">Run PHP</button>
-                            <div id="output" class="mt-4 bg-gray-800 text-white p-4 rounded-lg hidden"></div>
-                        </form>
-                    </main>
-                </div>
-            </div>
         </main>
+
     </div>
 </div>
 
@@ -92,4 +106,27 @@
             })
             .catch(error => console.error('Error executing PHP:', error));
     }
+
+    function executePython(event) {
+        event.preventDefault();
+        const code = document.getElementById('python-code').value;
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        fetch('/execute-python', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': token
+            },
+            body: JSON.stringify({ code })
+        })
+            .then(response => response.text())
+            .then(output => {
+                const outputDiv = document.getElementById('python-output');
+                outputDiv.innerHTML = output;
+                outputDiv.classList.remove('hidden');
+            })
+            .catch(error => console.error('Error executing Python:', error));
+    }
+
 </script>
