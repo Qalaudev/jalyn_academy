@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/users/{user}/update-courses', [AdminController::class, 'updateCourses'])->name('admin.users.updateCourses');
 });
 
-    Route::get('/course/{id}/learn',[CourseController::class,'courseLearn'])->name('course.learn');
+    Route::get('/course/{id}/learn',[CourseController::class,'courseLearn'])->name('course_learn');
 
     // compiler course
     Route::post('/execute-php', [CodeController::class, 'executePHP']);

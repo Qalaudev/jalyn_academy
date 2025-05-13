@@ -25,7 +25,6 @@
         </aside>
         <main class="flex-1 p-8 rounded-r-lg">
             <h1 class="text-3xl font-bold mb-4">{{$course->title}}</h1>
-            <p id="program-description" class="text-gray-600 mb-4">Выберите программу для просмотра.</p>
 
             @foreach($course->trainingPrograms as $program)
                 <div id="program-{{ $program->id }}" class="px-6 pb-6 hidden content">
@@ -49,7 +48,7 @@
 
                     @if(str_contains($course->title, 'PHP'))
                         <div class="mt-8">
-                            <h2 class="text-2xl font-bold mb-4">PHP Compiler</h2>
+                            <h2 class="text-2xl font-bold mb-4">PHP Компилятор</h2>
                             <form id="php-compiler-form">
                                 @csrf
                                 <textarea id="php-code" class="w-full h-40 p-4 bg-gray-800 text-white rounded-lg mb-4" placeholder="Введите ваш PHP код здесь..."></textarea>
@@ -59,7 +58,7 @@
                         </div>
                     @elseif(str_contains($course->title, 'Python'))
                         <div class="mt-8">
-                            <h2 class="text-2xl font-bold mb-4">Python Compiler</h2>
+                            <h2 class="text-2xl font-bold mb-4">Python Компилятор</h2>
                             <form id="python-compiler-form">
                                 @csrf
                                 <textarea id="python-code" class="w-full h-40 p-4 bg-gray-800 text-white rounded-lg mb-4" placeholder="Введите ваш Python код здесь..."></textarea>
