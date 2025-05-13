@@ -265,7 +265,6 @@
                 </div>
             </div>
         </div>
-
         <div id="feedback" class="max-w-[1399px] mx-auto px-4 py-16">
             <div class="flex flex-col md:flex-row gap-10 items-start">
                 <!-- Text section -->
@@ -301,8 +300,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 
     <!-- Кнопка вверх -->
@@ -405,7 +402,6 @@
 
         input.value = '';
 
-        // Бэкендке сұраныс жіберу (осы жерден өзіңнің Laravel route-ыңмен жалғастырасың)
         fetch('/ai-message', {
             method: 'POST',
             headers: {

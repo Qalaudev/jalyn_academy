@@ -50,14 +50,31 @@
                 @endforeach
             </ul>
         </aside>
-
         <main class="flex-1 p-8 rounded-r-lg">
-            <h1 class="text-3xl font-bold mb-4">{{$course->title}}</h1>
+            <h1 class="text-3xl font-bold mb-4">{{ $course->title }}</h1>
+
+            {{-- Перейти к тесту кнопкасы --}}
+            @php
+                // TrainingProgram -> menus байланысы арқылы бірінші менюді табамыз
+                $firstMenu = $course->trainingPrograms->flatMap->menus->first();
+            @endphp
+
+            @if($firstMenu)
+                <button
+                    onclick="location.href='{{ route('test.show', ['menu' => $firstMenu->id]) }}'"
+                    class="mb-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                >
+                    Перейти к тесту
+                </button>
+            @endif
+
             <p id="program-description" class="text-gray-600 mb-4">Выберите программу для просмотра.</p>
 
             @foreach($course->trainingPrograms as $program)
                 <div id="program-{{ $program->id }}" class="px-6 pb-6 hidden content">
                     <p>{{ $program->description }}</p>
+
+                    {{-- Видео --}}
                     @if($program->video_url)
                         @php
                             $embedUrl = str_replace("watch?v=", "embed/", $program->video_url);
@@ -75,6 +92,7 @@
                         </div>
                     @endif
 
+                    {{-- Компилятор --}}
                     @if(str_contains($course->title, 'PHP'))
                         <div class="mt-8">
                             <h2 class="text-2xl font-bold mb-4">PHP Compiler</h2>
@@ -99,6 +117,7 @@
                 </div>
             @endforeach
         </main>
+
 
     </div>
 </div>

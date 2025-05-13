@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\Admin\TestQuestionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -66,3 +69,45 @@ Route::middleware('auth')->group(function () {
     // compiler course
     Route::post('/execute-php', [CodeController::class, 'executePHP']);
     Route::post('/execute-python', [CodeController::class, 'executePython']);
+
+    Route::get('/test/{menu}', [TestController::class, 'show'])->name('test.show');
+    Route::post('/test/{menu}/submit', [TestController::class, 'submit'])->name('test.submit');
+
+    // Админка (можно через resource)
+    Route::resource('admin/questions', TestQuestionController::class);
+
+
+
+
+Route::post('/ai-message', function (Request $request) {
+    $userMessage = $request->input('message');
+    $apiKey = env('GEMINI_API_KEY');
+
+    $systemPrompt = "Сен — веб-чаттағы қазақ тілінде сөйлейтін көмекші.
+    Сен қысқа әрі нақты жауап бересің.
+    Бірінші жазған кезде оған курс туралы ақпарат беру керек.
+    Біздің онлайн платформа Jalyn Academy. Ол Питон және Php Laravel бойынша курстар өткізеді.
+    Өзіңді Jalyn Academy - дің ассистенті ретінде таныстыр.Курстардың бағасын сұраса,
+    40 000 тг мен 60 000 тг арасында деп айту керек. Ал курстарды өту барысында кодтан түсінбеген жерлері болса, мен көмектесе аламын дейсің";
+
+    $response = Http::withHeaders([
+        'Content-Type' => 'application/json',
+    ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={$apiKey}", [
+        'contents' => [
+            [
+                'parts' => [
+                    ['text' => $systemPrompt],
+                    ['text' => $userMessage],
+                ]
+            ]
+        ]
+    ]);
+
+    if ($response->successful()) {
+        $text = $response->json()['candidates'][0]['content']['parts'][0]['text'];
+        return response()->json(['reply' => $text]);
+    }
+
+    \Log::error('Gemini API error', ['response' => $response->body()]);
+    return response()->json(['reply' => 'Қате болды. AI жауап берген жоқ.'], 500);
+});
