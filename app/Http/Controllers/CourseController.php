@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -105,11 +106,13 @@ class CourseController extends Controller
     }
 
 
+
     public function courseLearn($id)
     {
-        $course = Course::with('lessons')->findOrFail($id);
+        $course = Course::with('trainingPrograms.menus')->findOrFail($id);
         return view('course.learn', compact('course'));
     }
+
 
 
 }

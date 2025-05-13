@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -58,6 +59,9 @@ Route::middleware('auth')->group(function () {
 });
 
     Route::get('/course/{id}/learn',[CourseController::class,'courseLearn'])->name('course.learn');
+
+    Route::get('/admin/create-menu',[MenuController::class,'index'])->name('create.menu');
+    Route::post('/admin/create-menu',[MenuController::class,'store'])->name('store.menu');
 
     // compiler course
     Route::post('/execute-php', [CodeController::class, 'executePHP']);

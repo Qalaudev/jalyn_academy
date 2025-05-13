@@ -1,28 +1,56 @@
 @include('layout.header')
 <div class="flex justify-center py-8 bg-gray-50 min-h-screen">
     <div class="w-full max-w-7xl bg-white rounded-lg shadow-lg flex">
+
         <aside class="w-64 bg-gray-100 border-r border-gray-300 rounded-l-lg">
             <ul class="mt-8 space-y-1 text-gray-700">
                 <li class="block py-2 px-4 bg-green-600 text-white rounded-lg font-semibold">
                     <a href="{{ route('course_index') }}">Басты бет</a>
                 </li>
                 <li>
-                    <a href="#" class="block py-2 px-4 bg-green-600 text-white rounded-lg font-semibold">{{$course->title}}</a>
+          <span class="block py-2 px-4 bg-green-600 text-white rounded-lg font-semibold">
+            {{ $course->title }}
+          </span>
                 </li>
+
                 @foreach($course->trainingPrograms as $program)
                     <li class="relative">
-                        <div onclick="toggleProgram('{{ $program->id }}')" class="block py-2 px-4 hover:bg-green-100 rounded-lg cursor-pointer flex justify-between items-center">
-                            {{$program->name}}
-                            <span class="transition-transform transform">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500 plus-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        <div
+                            onclick="toggleMenus('{{ $program->id }}')"
+                            class="block py-2 px-4 hover:bg-green-100 rounded-lg cursor-pointer flex justify-between items-center"
+                        >
+                            <span class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2-12H7a2 2 0 00-2 2v16l5-4h8a2 2 0 002-2V6a2 2 0 00-2-2z" />
                                 </svg>
+                                {{ $program->name }}
                             </span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500 transition-transform transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
                         </div>
+                        <ul id="menus-{{ $program->id }}" class="ml-4 mt-1 space-y-1 hidden">
+                            @forelse($program->menus as $menu)
+                                <li
+                                    class="py-1 px-3 bg-white hover:bg-green-50 rounded-lg text-gray-800 cursor-pointer flex items-center"
+                                    onclick="showMenuDescription(`{!! addslashes($menu->description) !!}`)"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6M4 4h16v16H4z" />
+                                    </svg>
+                                    {{ $menu->name }}
+                                </li>
+                            @empty
+                                <li class="py-1 px-3 text-gray-500 italic">
+                                    Меню жоқ
+                                </li>
+                            @endforelse
+                        </ul>
                     </li>
                 @endforeach
             </ul>
         </aside>
+
         <main class="flex-1 p-8 rounded-r-lg">
             <h1 class="text-3xl font-bold mb-4">{{$course->title}}</h1>
             <p id="program-description" class="text-gray-600 mb-4">Выберите программу для просмотра.</p>
@@ -127,6 +155,18 @@
                 outputDiv.classList.remove('hidden');
             })
             .catch(error => console.error('Error executing Python:', error));
+    }
+    function toggleMenus(id) {
+        const el = document.getElementById(`menus-${id}`);
+        if (!el) return;
+        el.classList.toggle('hidden');
+    }
+    function showMenuDescription(description) {
+        const descElem = document.getElementById('program-description');
+        descElem.innerText = description;
+        document.querySelectorAll('.content').forEach(block => {
+            block.classList.add('hidden');
+        });
     }
 
 </script>
