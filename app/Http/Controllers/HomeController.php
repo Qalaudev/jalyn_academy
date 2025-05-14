@@ -15,6 +15,11 @@ class HomeController extends Controller
 
     public function navbar()
     {
-        return view('layout.navbar');
+        return view('layout.about');
+    }
+
+    public function contact()
+    {
+        return view('layout.contact');
     }
 }

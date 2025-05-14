@@ -1,4 +1,4 @@
-@include('layout.header')
+@include('layout.navbar')
 
 <div class="container mx-auto px-4 py-6">
     <div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
