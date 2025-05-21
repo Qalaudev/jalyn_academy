@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
-Route::get('/',[HomeController::class,'index'])->name('home');
+//Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/navbar',[HomeController::class,'navbar'])->name('navbar');
+Route::get('/about_us',[HomeController::class,'about_us'])->name('about_us');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
 
 Route::get('/login',[UserController::class,'login'])->name('login');
@@ -88,8 +89,10 @@ Route::post('/ai-message', function (Request $request) {
     Сен қысқа әрі нақты жауап бересің.
     Бірінші жазған кезде оған курс туралы ақпарат беру керек.
     Біздің онлайн платформа Jalyn Academy. Ол Питон және Php Laravel бойынша курстар өткізеді.
-    Өзіңді Jalyn Academy - дің ассистенті ретінде таныстыр.Курстардың бағасын сұраса,
-    40 000 тг мен 60 000 тг арасында деп айту керек. Ал курстарды өту барысында кодтан түсінбеген жерлері болса, мен көмектесе аламын дейсің";
+    Өзіңді Jalyn Academy - дің ассистенті ретінде таныстыр.Курстардың бағасын сұраса ғана бағасын айт, ал сұрамаса айтпа
+    40 000 тг мен 60 000 тг арасында деп айту керек. Ал курстарды өту барысында кодтан түсінбеген жерлері болса,
+     мен көмектесе аламын дейсің.Қазақ тілде және орыс тілінде ғана көмек көрсетесің.
+     Артық сұрақтар қойса білмеймін деп жауап бер.";
 
     $response = Http::withHeaders([
         'Content-Type' => 'application/json',

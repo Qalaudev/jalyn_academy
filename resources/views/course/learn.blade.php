@@ -73,7 +73,7 @@
             <p id="program-description" class="text-gray-600 mb-4">Көру үшін бағдарламаны таңдаңыз.</p>
 
             @foreach($course->trainingPrograms as $program)
-                <div id="program-{{ $program->id }}" class="px-6 pb-6 hidden content">
+                <div id="program-{{ $program->id }}" class="px-6 pb-6">
                     <p>{{ $program->description }}</p>
 
                     {{-- Видео --}}
@@ -81,6 +81,7 @@
                         @php
                             $embedUrl = str_replace("watch?v=", "embed/", $program->video_url);
                         @endphp
+
                         <div class="flex justify-center">
                             <iframe
                                 width="720"

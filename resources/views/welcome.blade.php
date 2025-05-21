@@ -16,19 +16,19 @@
                 JALYN ACADEMY
             </h1>
             <p class="text-3xl mt-4 font-bold text-slate-100">
-                – это новый подход <br> к IT образованию!
+                – IT әлемге  <br> жаңа қадам
             </p>
             <p class="text-lg mt-4 text-slate-400">
-                <b>Обучайся, развивайся и строй успешную карьеру в IT!</b>
+                <b>It-де табысты мансапты үйреніңіз, дамыңыз және құрыңыз!</b>
             </p>
 
             <button id="scroll-btn" class="mt-6 px-6 py-3 bg-cyan-400 text-slate-900 font-semibold rounded hover:bg-cyan-500 transition">
-                Получить консультацию
+                Консультацию алу
             </button>
         </div>
     </div>
     <div class="container mx-auto px-4 py-10 text-white">
-        <h1 class="text-5xl font-bold mb-10 text-white">Наши курсы</h1>
+        <h1 class="text-5xl font-bold mb-10 text-white">Біздің курстар</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Advanced Java Developer Card -->
             @foreach($courses as $course)
@@ -53,48 +53,48 @@
     </div>
 
     <section class="bg-[#111827] py-16 px-4 md:px-16">
-        <h2 class="text-4xl font-bold text-white text-center mb-16">Почему мы?</h2>
+        <h2 class="text-4xl font-bold text-white text-center mb-16">Неліктен біз?</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-6xl mx-auto">
             <!-- Card 1 -->
             <div class="flex flex-col items-center text-center">
                 <img src="{{asset('images/human_comp-removebg-preview.png')}}" alt="Программа" class="h-40 mb-6" />
-                <h3 class="text-xl font-bold text-white mb-2">Качественная программа</h3>
+                <h3 class="text-xl font-bold text-white mb-2">Сапалы бағдарлама</h3>
                 <p class="text-slate-300 max-w-sm">
-                    Курсы, контент, задачи, видеоматериалы, наставники, взаимодействие с другими учениками, тестирование и оценка успеваемости, сертификация
+                    Курстар, мазмұн, тапсырмалар, бейнематериалдар, тәлімгерлер, басқа студенттермен өзара әрекеттесу, тестілеу және үлгерімді бағалау, сертификаттау
                 </p>
             </div>
 
             <!-- Card 2 -->
             <div class="flex flex-col items-center text-center">
                 <img src="{{asset('images/analytics-removebg-preview.png')}}" alt="Трудоустройство" class="h-40 mb-6" />
-                <h3 class="text-xl font-bold text-white mb-2">Помощь с трудоустройством</h3>
+                <h3 class="text-xl font-bold text-white mb-2">Жұмысқа орналасуға көмек</h3>
                 <p class="text-slate-300 max-w-sm">
-                    У JALYN Academy много партнеров в ИТ-компаниях, которые ищут специалистов, и мы направляем данные наших выпускников для собеседования.
+                    JALYN Academy-де көптеген IT-компаниялармен серіктестік бар, олар мамандар іздейді, ал біз түлектеріміздің деректерін сұхбаттасуға жібереміз.
                 </p>
             </div>
 
             <!-- Card 3 -->
             <div class="flex flex-col items-center text-center">
                 <img src="{{asset('images/lightbulb_human-removebg-preview.png')}}" alt="Платформа" class="h-40 mb-6" />
-                <h3 class="text-xl font-bold text-white mb-2">Удобная платформа</h3>
+                <h3 class="text-xl font-bold text-white mb-2">Ыңғайлы платформа</h3>
                 <p class="text-slate-300 max-w-sm">
-                    Каждому студенту предоставляется доступ к нашей платформе со всеми видеоуроками, лекциями, задачами и тестами
+                    Әр студентке біздің платформаға барлық бейне сабақтармен, дәрістермен, тапсырмалармен және тесттермен қол жетімділік беріледі
                 </p>
             </div>
 
             <!-- Card 4 -->
             <div class="flex flex-col items-center text-center">
                 <img src="{{asset('images/teacher_human-removebg-preview.png')}}" alt="Преподаватели" class="h-40 mb-6" />
-                <h3 class="text-xl font-bold text-white mb-2">Опытные преподаватели</h3>
+                <h3 class="text-xl font-bold text-white mb-2">Тәжірибелі оқытушылар</h3>
                 <p class="text-slate-300 max-w-sm">
-                    Наши тренеры являются действующими разработчиками, что позволяет им давать актуальные знания и делиться практическим опытом со студентами
+                    Біздің жаттықтырушылар қазіргі әзірлеушілер болып табылады, бұл оларға өзекті білім беруге және студенттермен практикалық тәжірибемен бөлісуге мүмкіндік береді
                 </p>
             </div>
         </div>
     </section>
     <div class="container mx-auto px-4 py-16">
         <!-- Заголовок -->
-        <h1 class="text-4xl md:text-5xl font-bold text-center mb-20 text-white">Истории успеха наших студентов:</h1>
+        <h1 class="text-4xl md:text-5xl font-bold text-center mb-20 text-white">Біздің студенттердің сәттілік тарихы:</h1>
 
         <!-- Карточки студентов -->
         <div class="flex flex-wrap justify-center items-center gap-4 md:gap-6 mb-32">
@@ -103,7 +103,10 @@
             <div class="w-64 h-110 group transform transition-transform duration-300 hover:-rotate-1">
                 <div class="bg-[#1E1E2F] border border-[#4C6FFF] rounded-3xl p-6 h-full flex flex-col shadow-md hover:shadow-lg hover:shadow-[#4C6FFF]/40 transition-shadow duration-300 text-white">
                     <p class="text-sm text-[#F5F5F7] mb-6">
-                        Для меня курсы в JALYN это было просто мечтой о бутерброде с обучением, а путь к своей цели-возможность попасть в сферу IT лучшего места, я стараюсь выбрать самые лучшие места действительно за них платить. Получив базовые знания в битлаб, я уже через 3 месяца после окончания 1 месячного курса обучения получил свой первый офер в Альфа банк. Некоторыми материалами пользуюсь до сих пор.
+                        JALYN-дегі курстар мен үшін оқытумен бірге берілетін бутерброд туралы арман сияқты болды, ал өз мақсатыма жету - IT саласына кіруге мүмкіндік.
+                        Мен әрдайым ең жақсы жерлерді таңдап, шынайы баға төлеуге тырысамын.
+                        Bitlab-тан негізгі білім алған соң, бір айлық курсты аяқтағаннан кейін небәрі 3 ай өткенде Альфа Банктен алғашқы жұмыс ұсынысымды алдым.
+                        Кейбір материалдарды әлі күнге дейін пайдаланамын.
                     </p>
                     <div class="mt-auto flex items-center">
                         <div class="w-10 h-10 rounded-full bg-[#4C6FFF] mr-3"></div>
@@ -184,7 +187,7 @@
         </div>
 
         <!-- Часто задаваемые вопросы -->
-        <h2 class="text-4xl md:text-5xl font-bold text-center text-white">Часто задаваемые вопросы</h2>
+        <h2 class="text-4xl md:text-5xl font-bold text-center text-white">Жиі қойылатын сұрақтар</h2>
     </div>
 
     <!-- Кнопка вверх -->
@@ -204,7 +207,7 @@
             <div class="mb-4">
                 <div class="border border-gray-700 rounded-xl">
                     <div class="flex justify-between items-center p-6 cursor-pointer toggle-accordion">
-                        <h3 class="text-xl font-medium">Сколько часов в неделю мне нужно будет уделять курсу?</h3>
+                        <h3 class="text-xl font-medium">Аптасына қанша сағат курсқа баруым керек?</h3>
                         <button class="bg-teal-500 w-12 h-12 rounded-xl flex items-center justify-center icon">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white plus-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -215,7 +218,7 @@
                         </button>
                     </div>
                     <div class="px-6 pb-6 hidden content">
-                        <p>Среднее время, которое потребуется для прохождения курса — от 6 до 10 часов в неделю. Это включает просмотр лекций, выполнение домашних заданий и участие в воркшопах.</p>
+                        <p>Курсты аяқтауға кететін орташа уақыт аптасына 6-дан 10 сағатқа дейін. Бұған дәрістерді қарау, үй тапсырмаларын орындау және воркшоптарға қатысу кіреді.</p>
                     </div>
                 </div>
             </div>
@@ -224,7 +227,7 @@
             <div class="mb-4">
                 <div class="border border-gray-700 rounded-xl">
                     <div class="flex justify-between items-center p-6 cursor-pointer toggle-accordion">
-                        <h3 class="text-xl font-medium">Насколько быстро я смогу трудоустроиться после завершения курса?</h3>
+                        <h3 class="text-xl font-medium">Курсты аяқтағаннан кейін мен қаншалықты тез жұмысқа тұра аламын?</h3>
                         <button class="bg-teal-500 w-12 h-12 rounded-xl flex items-center justify-center icon">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white plus-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -236,10 +239,16 @@
                     </div>
                     <div class="px-6 pb-6 content">
                         <p class="mb-4">
-                            77% наших выпускников находят работу в течение 1-2 месяцев после окончания курса, а некоторые получают предложения сразу. Всё зависит от вас и вашей способности к самопрезентации. Курс построен так, что выпускники, успешно завершившие финальный проект, готовы к трудоустройству без особых сложностей.
+                            Біздің түлектердің 77% - ы курсты аяқтағаннан кейін 1-2 ай ішінде жұмыс табады,
+                            ал кейбіреулері бірден ұсыныстар алады.
+                            Мұның бәрі сізге және өзін-өзі таныстыру қабілетіңізге байланысты.
+                            Курс қорытынды жобаны сәтті аяқтаған түлектер үшін салынған,
+                            көп қиындықсыз жұмысқа орналасуға дайын.
                         </p>
                         <p>
-                            После окончания курса вы также получаете доступ в наш Telegram-канал с актуальными вакансиями от партнеров и компаний. Если у вас возникнут сложности с поиском работы, мы предлагаем возможность пройти стажировку в нашей академии.
+                            Курсты аяқтағаннан кейін сіз серіктестер мен компаниялардың өзекті бос жұмыс орындарымен біздің Telegram арнасына кіре аласыз.
+                            Егер сізде жұмыс табуда қиындықтар туындаса,
+                            біз академиямызда тағылымдамадан өту мүмкіндігін ұсынамыз.
                         </p>
                     </div>
                 </div>
@@ -249,7 +258,7 @@
             <div class="mb-4">
                 <div class="border border-gray-700 rounded-xl">
                     <div class="flex justify-between items-center p-6 cursor-pointer toggle-accordion">
-                        <h3 class="text-xl font-medium">В каком формате проходит обучение?</h3>
+                        <h3 class="text-xl font-medium">Оқыту қандай форматта өтеді?</h3>
                         <button class="bg-teal-500 w-12 h-12 rounded-xl flex items-center justify-center icon">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white plus-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -260,7 +269,9 @@
                         </button>
                     </div>
                     <div class="px-6 pb-6 hidden content">
-                        <p>Обучение проходит онлайн, с доступом к записям занятий, чатам с наставниками и живыми Zoom-сессиями для практики и разбора вопросов.</p>
+                        <p>Оқыту онлайн режимінде, сабақ жазбаларына қол жетімділікпен өтеді,
+                            тәжірибеге және сұрақтарды талдауға арналған тәлімгерлермен және тікелей масштабтау сессияларымен сөйлесу.
+                        </p>
                     </div>
                 </div>
             </div>

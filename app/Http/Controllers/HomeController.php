@@ -13,7 +13,7 @@ class HomeController extends Controller
         return view('welcome', compact('courses'));
     }
 
-    public function navbar()
+    public function about_us()
     {
         return view('layout.about');
     }
@@ -22,4 +22,5 @@ class HomeController extends Controller
     {
         return view('layout.contact');
     }
+
 }

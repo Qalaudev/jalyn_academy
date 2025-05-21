@@ -8,20 +8,20 @@
             <div class="flex items-center gap-3">
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
                     <img src="{{ asset('images/jalyn_logo.jpg') }}" alt="Logo" class="h-10 w-10 rounded-full object-cover">
-                    <span class="text-lg font-bold text-gray-800">Онлайн Курсы</span>
+                    <span class="text-lg font-bold text-gray-800">Jalyn</span>
                 </a>
             </div>
 
             {{-- Мәзірлер --}}
             <ul class="hidden md:flex space-x-6 font-semibold">
-                <li><a href="{{ route('home') }}" class="hover:text-blue-600">Главная</a></li>
-                <li><a href="{{ route('navbar') }}" class="hover:text-blue-600">О нас</a></li>
-                <li><a href="{{ route('course_index') }}" class="hover:text-blue-600">Курсы</a></li>
+                <li><a href="{{ route('home') }}" class="hover:text-blue-600">Басты бет</a></li>
+                <li><a href="{{ route('about_us') }}" class="hover:text-blue-600">Біз туралы</a></li>
+                <li><a href="{{ route('course_index') }}" class="hover:text-blue-600">Курстар</a></li>
                 <li><a href="{{ route('contact') }}" class="hover:text-blue-600">Контакты</a></li>
 
                 @if(Auth::user()?->role?->name === 'Admin')
-                    <li><a href="{{ route('role_index') }}" class="hover:text-blue-600">Roles</a></li>
-                    <li><a href="{{ route('role_create') }}" class="hover:text-blue-600">Add Role</a></li>
+                    <li><a href="{{ route('role_index') }}" class="hover:text-blue-600">Рольдер</a></li>
+                    <li><a href="{{ route('role_create') }}" class="hover:text-blue-600">Рольдер құру</a></li>
                 @endif
             </ul>
         </div>
