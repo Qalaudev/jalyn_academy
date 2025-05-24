@@ -17,10 +17,11 @@ Route::get('/', function () {
     return view('index');
 });
 
-//Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/navbar',[HomeController::class,'navbar'])->name('navbar');
 Route::get('/about_us',[HomeController::class,'about_us'])->name('about_us');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
+
 
 Route::get('/login',[UserController::class,'login'])->name('login');
 Route::post('/login',[UserController::class,'authenticate'])->name('authenticate');
@@ -44,6 +45,7 @@ Route::prefix('courses')->group(function () {
     Route::get('/', [CourseController::class, 'index'])->name('course_index');
     Route::get('/create', [CourseController::class, 'createCourseForm'])->name('course_create_form');
     Route::post('/create', [CourseController::class, 'createCourse'])->name('course_create');
+    Route::get('/courses', [CourseController::class, 'getCourses'])->name('course_list');
     Route::get('/edit/{id}', [CourseController::class, 'editCourse'])->name('course_edit');
     Route::put('/edit/{id}', [CourseController::class, 'updateCourse'])->name('course_update');
     Route::delete('/delete/{id}', [CourseController::class, 'destroyCourse'])->name('course_delete');
@@ -115,3 +117,7 @@ Route::post('/ai-message', function (Request $request) {
     \Log::error('Gemini API error', ['response' => $response->body()]);
     return response()->json(['reply' => 'Қате болды. AI жауап берген жоқ.'], 500);
 });
+
+Route::get('/{any}', function () {
+    return view('index');
+})->where('any', '.*');

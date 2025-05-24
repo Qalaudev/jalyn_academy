@@ -94,6 +94,12 @@ class CourseController extends Controller
         return redirect()->route('course_index')->with('success', 'Курс сәтті жаңартылды!');
     }
 
+    public function getCourses()
+    {
+        $courses = Course::latest()->get();
+        return response()->json($courses);
+    }
+
 
     /**
      * Remove the specified resource from storage.
