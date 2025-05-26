@@ -52,7 +52,7 @@ export default {
     methods: {
         async submitForm() {
             try {
-                const response = await fetch('http://localhost:8000/login', {
+                const response = await fetch('http://127.0.0.1:8000/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -67,6 +67,7 @@ export default {
                 const data = await response.json();
                 if (response.ok) {
                     console.log('Кіру сәтті:', data);
+                    this.$router.push('/admin-page');
                 } else {
                     alert(data.message || 'Қате мәліметтер енгізілді.');
                 }

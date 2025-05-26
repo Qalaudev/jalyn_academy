@@ -22,25 +22,28 @@ class UserController extends Controller
 
     public function authenticate(Request $request)
     {
-        // платформаға кіру функциясы
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
 
         if ($this->authService->login($request->only('email', 'password'))) {
-
             $user = auth()->user();
 
-            if ($user->role->name == 'Admin') {
-                return redirect()->route('admin.dashboard');
-            } else if ($user->role->name == 'Student') {
-                return redirect()->route('home');
-            }
-            return redirect()->route('navbar');
+            return response()->json([
+                'message' => 'Кіру сәтті',
+                'user' => [
+                    'name' => $user->name,
+                    'role' => $user->role->name,
+                ],
+            ]);
         }
-        return redirect()->route('login')->withErrors(['email' => 'Кіру деректері дұрыс емес!']);
+
+        return response()->json([
+            'message' => 'Кіру деректері дұрыс емес!',
+        ], 401);
     }
+
 
     public function register()
     {

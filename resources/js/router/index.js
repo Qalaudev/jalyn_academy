@@ -5,6 +5,7 @@ import LoginForm from "../components/LoginForm.vue";
 import RegisterForm from "../components/RegisterForm.vue";
 import Main from "../components/Main.vue";
 import Welcome from "../components/Welcome.vue";
+import AdminPage from "../components/AdminPage.vue";
 
 
 const routes = [
@@ -27,6 +28,10 @@ const routes = [
     {
         path:'/welcome',
         component:Welcome
+    },
+    {
+        path:'/admin-page',
+        component:AdminPage
     }
 ];
 
