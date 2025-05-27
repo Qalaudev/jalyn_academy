@@ -4,7 +4,7 @@
             <div class="flex items-center space-x-8">
                 <div class="flex items-center gap-3">
                     <router-link to="/" class="flex items-center gap-2">
-                        <img src="/images/jalyn_logo.jpg" alt="Logo" class="h-10 w-10 rounded-full object-cover" />
+                        <img src="/public/images/jalyn_logo.jpg" alt="Logo" class="h-10 w-10 rounded-full object-cover" />
                         <span class="text-lg font-bold text-gray-800">Jalyn</span>
                     </router-link>
                 </div>
