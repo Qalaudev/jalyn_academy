@@ -26,6 +26,7 @@
         </tbody>
     </table>
 
+
     <form action="{{ route('admin.courseTrainingProgram', $course->id) }}" method="POST" class="mt-6 space-y-4 max-w-xl mx-auto">
         @csrf
         <div class="sm:col-span-2 sm:col-start-1">

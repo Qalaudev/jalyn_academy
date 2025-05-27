@@ -32,10 +32,17 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function courses()
+    public function courses(Request $request)
     {
+        /*$courses = Course::all();
+        return view('admin.courses.courses',compact('courses'));*/
         $courses = Course::all();
-        return view('admin.courses.courses',compact('courses'));
+
+        if ($request->expectsJson()) {
+            return response()->json($courses);
+        }
+
+        return view('admin.courses.courses', compact('courses'));
     }
 
 
@@ -60,12 +67,19 @@ class AdminController extends Controller
 
 
     public function coursesShow($id){
-        $course = Course::findOrFail($id);
-        return view('admin.courses.coursesShow',compact('course'));
+        /*$course = Course::findOrFail($id);
+        return view('admin.courses.coursesShow',compact('course'));*/
+        $course = Course::with('trainingPrograms')->findOrFail($id);
+
+        if (request()->expectsJson()) {
+            return response()->json($course);
+        }
+
+        return view('admin.courses.coursesShow', compact('course'));
     }
 
 
-    public function courseTrainingProgram(Request $request, Course $course)
+    /*public function courseTrainingProgram(Request $request, Course $course)
     {
         $validated = $request->validate([
             'name' => 'required|string',
@@ -79,6 +93,28 @@ class AdminController extends Controller
             'course_id' => $course->id,
             'video_url' => $validated['video_url'],
         ]);
+
+        return redirect()->back()->with('success', 'Программа обучения сохранена!');
+    }*/
+    public function courseTrainingProgram(Request $request, Course $course)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'video_url' =>  'required',
+        ]);
+
+        $program = TrainingProgram::create([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'course_id' => $course->id,
+            'video_url' => $validated['video_url'],
+        ]);
+
+        // 👇 Вот ключ:
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'OK', 'program' => $program]);
+        }
 
         return redirect()->back()->with('success', 'Программа обучения сохранена!');
     }
