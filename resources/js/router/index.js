@@ -9,6 +9,8 @@ import AdminPage from "../components/admin/AdminPage.vue";
 import Courses from "../components/admin/courses/Courses.vue";
 import CourseShow from "../components/admin/courses/CourseShow.vue";
 import UsersList from "../components/admin/Users/UsersList.vue";
+import AboutUs from "../components/AboutUs.vue";
+import HomePage from "../components/HomePage.vue";
 
 
 const requireAuth = (to, from, next) => {
@@ -52,6 +54,14 @@ const routes = [
         component:Welcome
     },
     {
+      path: '/about-us',
+      component: AboutUs
+    },
+    {
+      path: '/home',
+      component: HomePage
+    },
+    {
         path:'/admin-page',
         component:AdminPage,
         beforeEnter: requireAuth,
@@ -72,7 +82,6 @@ const routes = [
         path:'/admin-page/users',
         component: UsersList,
         beforeEnter: requireAuth,
-
     },
 
 ];

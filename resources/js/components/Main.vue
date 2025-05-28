@@ -377,6 +377,7 @@
 
 <script>
 export default {
+    name: 'Main.vue',
     data()
     {
         return {

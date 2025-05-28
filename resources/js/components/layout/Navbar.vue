@@ -10,7 +10,7 @@
                 </div>
 
                 <ul class="hidden md:flex space-x-6 font-semibold">
-                    <li><router-link to="/" class="hover:text-blue-600">Басты бет</router-link></li>
+                    <li><router-link to="/home" class="hover:text-blue-600">Басты бет</router-link></li>
                     <li><router-link to="/about-us" class="hover:text-blue-600">Біз туралы</router-link></li>
                     <li><router-link to="/courses" class="hover:text-blue-600">Курстар</router-link></li>
                     <li><router-link to="/contact" class="hover:text-blue-600">Контакты</router-link></li>
