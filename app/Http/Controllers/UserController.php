@@ -15,6 +15,12 @@ class UserController extends Controller
         $this->authService = $authService;
     }
 
+    public function authUser(Request $request)
+    {
+        return response()->json(Auth::user());
+    }
+
+
     public function login()
     {
         return view('auth.login');
@@ -70,7 +76,9 @@ class UserController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('home');
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return response()->json(['message' => 'Logged out']);
     }
 
 }

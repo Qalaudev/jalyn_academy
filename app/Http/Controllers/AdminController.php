@@ -16,8 +16,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('admin.index', compact('users'));
+        $users = User::select('id','name','email','role_id')->get();
+        return response()->json($users);
     }
 
     /**

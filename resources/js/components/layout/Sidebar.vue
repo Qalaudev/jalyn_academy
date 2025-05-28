@@ -3,6 +3,12 @@
     <aside class="fixed top-0 left-0 w-64 h-screen bg-gray-50 dark:bg-gray-800">
         <div class="h-full px-3 py-4 overflow-y-auto">
             <ul class="space-y-2 font-medium">
+
+                <SidebarItem
+                    icon="👤"
+                    :text="user?.name ? `Қош келдің, ${user.name}` : 'Қолданушы'"
+                />
+
                 <SidebarItem icon="🏠" text="Дэшборд" to="/admin-page" />
                 <SidebarItem icon="🧑‍💼" text="Пайдаланушылар" to="/admin-page/users" />
                 <SidebarItem icon="📚" text="Курстар" to="/admin-page/courses" />
@@ -28,13 +34,16 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import SidebarItem from './SidebarItem.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
+const user = ref(null);
+
 const logout = async () => {
-    await fetch('/logout', {
+    await fetch('http://127.0.0.1:8000/logout', {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
@@ -44,4 +53,27 @@ const logout = async () => {
     });
     router.push('/testlogin');
 };
+
+onMounted(async () => {
+    try {
+        const res = await fetch('/auth-user', {
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            credentials: 'include',
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            console.log('User:', data);
+            user.value = data;
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+});
 </script>
+
+
+

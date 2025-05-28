@@ -10,6 +10,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::get('/navbar',[HomeController::class,'navbar'])->name('navbar');
 Route::get('/about_us',[HomeController::class,'about_us'])->name('about_us');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
 
+Route::middleware('auth')->get('/auth-user', [UserController::class, 'authUser']);
 
 Route::get('/login',[UserController::class,'login'])->name('login');
 Route::post('/login',[UserController::class,'authenticate'])->name('authenticate');
@@ -58,7 +60,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/courses',[AdminController::class,'courses'])->name('admin.courses');
     Route::get('/admin/courses/show/{id}',[AdminController::class,'coursesShow'])->name('admin.coursesShow');
     Route::post('/admin/course/{course}/training-program',[AdminController::class,'courseTrainingProgram'])->name('admin.courseTrainingProgram');
-
 
     Route::get('/admin/users/{user}/courses', [AdminController::class, 'userCourses'])->name('admin.users.userCourses');
     Route::get('/admin/users/{user}/edit-courses', [AdminController::class, 'editCourses'])->name('admin.users.editCourses');
