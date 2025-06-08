@@ -37,10 +37,10 @@ const routes = [
         path:'/test',
         component:Navbar
     },
-    {
-        path:'/testlogin',
-        component: LoginForm
-    },
+    // {
+    //     path:'/testlogin',
+    //     component: LoginForm
+    // },
     {
         path:'/testregister',
         component: RegisterForm

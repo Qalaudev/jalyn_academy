@@ -17,7 +17,7 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::select('id','name','email','role_id')->get();
-        return response()->json($users);
+        return view('admin.index', compact('users'));
     }
 
     /**
@@ -111,13 +111,37 @@ class AdminController extends Controller
             'video_url' => $validated['video_url'],
         ]);
 
-        // 👇 Вот ключ:
         if ($request->expectsJson()) {
             return response()->json(['message' => 'OK', 'program' => $program]);
         }
 
         return redirect()->back()->with('success', 'Программа обучения сохранена!');
     }
+
+
+    public function edit($id)
+    {
+        $program = TrainingProgram::findOrFail($id);
+        return view('admin.courses.coursesShow', compact('program'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $program = TrainingProgram::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'video_url' => 'nullable|url',
+        ]);
+
+        $program->update($validated);
+
+        return redirect()->back()->with('success', 'Программа успешно обновлена');
+    }
+
+
+
 
 
 }

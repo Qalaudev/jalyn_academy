@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\ReCaptcha;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
@@ -34,21 +36,11 @@ class UserController extends Controller
         ]);
 
         if ($this->authService->login($request->only('email', 'password'))) {
-            $user = auth()->user();
-
-            return response()->json([
-                'message' => 'Кіру сәтті',
-                'user' => [
-                    'name' => $user->name,
-                    'role' => $user->role->name,
-                ],
-            ]);
+            return redirect()->route('home');
         }
-
-        return response()->json([
-            'message' => 'Кіру деректері дұрыс емес!',
-        ], 401);
+        return redirect()->route('login')->withErrors(['email' => 'Кіру деректері дұрыс емес!']);
     }
+
 
 
     public function register()
@@ -76,9 +68,9 @@ class UserController extends Controller
     public function logout()
     {
         Auth::logout();
-        request()->session()->invalidate();
-        request()->session()->regenerateToken();
-        return response()->json(['message' => 'Logged out']);
+//        request()->session()->invalidate();
+//        request()->session()->regenerateToken();
+        return redirect()->route('home');
     }
 
 }

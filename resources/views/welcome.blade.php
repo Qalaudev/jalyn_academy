@@ -32,25 +32,54 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Advanced Java Developer Card -->
             @foreach($courses as $course)
-            <div class="bg-[#1e293b] border border-[#334155] rounded-2xl p-6">
-                <h2 class="text-2xl font-semibold mb-2">{{$course->title}}</h2>
-                <p class="text-gray-400 mb-4">{{$course->description}}</p>
-                <div class="flex flex-wrap gap-2 mb-4">
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Недельи: {{$course->duration_weeks}}</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">{{$course->schedule}}</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Уровень: {{$course->level}}</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Формат: {{$course->format}}</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Старт: {{$course->start_date}}</span>
-                    <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Осталось: <span class="text-cyan-400">{{$course->spots_left}}</span></span>
+                <div
+                    class="bg-[#1e293b] border border-[#334155] rounded-2xl p-6 cursor-pointer"
+                    onclick="openModal(this)"
+                    data-course='@json($course)'
+                >
+                    <h2 class="text-2xl font-semibold mb-2">{{$course->title}}</h2>
+                    <p class="text-gray-400 mb-4">{{$course->description}}</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Недельи: {{$course->duration_weeks}}</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">{{$course->schedule}}</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Уровень: {{$course->level}}</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Формат: {{$course->format}}</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Старт: {{$course->start_date}}</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Осталось: <span class="text-cyan-400">{{$course->spots_left}}</span></span>
+                    </div>
+                    <div class="flex justify-between items-end">
+                        <div class="bg-red-600 px-4 py-1 rounded-full text-white font-semibold">0-0-12</div>
+                        <div class="text-2xl font-bold text-cyan-400">{{$course->price}} ₸</div>
+                    </div>
                 </div>
-                <div class="flex justify-between items-end">
-                    <div class="bg-red-600 px-4 py-1 rounded-full text-white font-semibold">0-0-12</div>
-                    <div class="text-2xl font-bold text-cyan-400">{{$course->price}} ₸</div>
-                </div>
-            </div>
             @endforeach
+
         </div>
     </div>
+
+    <!-- Модаль фон -->
+    <div id="courseModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-[#1e293b] rounded-xl w-full max-w-xl p-6 relative text-white">
+            <!-- Жабу батырмасы -->
+            <button onclick="closeModal()" class="absolute top-2 right-2 text-white text-2xl">&times;</button>
+
+            <h2 id="modalTitle" class="text-3xl font-bold mb-4"></h2>
+            <p id="modalDescription" class="text-gray-400 mb-4"></p>
+
+            <ul class="space-y-2 text-sm">
+                <li><strong>Ұзақтығы:</strong> <span id="modalDuration"></span> апта</li>
+                <li><strong>Кесте:</strong> <span id="modalSchedule"></span></li>
+                <li><strong>Деңгей:</strong> <span id="modalLevel"></span></li>
+                <li><strong>Формат:</strong> <span id="modalFormat"></span></li>
+                <li><strong>Басталуы:</strong> <span id="modalStart"></span></li>
+                <li><strong>Орын қалды:</strong> <span id="modalSpots"></span></li>
+            </ul>
+
+            <div class="text-right mt-6 text-2xl font-bold text-cyan-400" id="modalPrice"></div>
+        </div>
+    </div>
+
+
 
     <section class="bg-[#111827] py-16 px-4 md:px-16">
         <h2 class="text-4xl font-bold text-white text-center mb-16">Неліктен біз?</h2>
@@ -433,5 +462,27 @@
                 console.error('AI жауап қатпады', err);
             });
     };
+
+
+    function openModal(element) {
+        const course = JSON.parse(element.getAttribute('data-course'));
+
+        document.getElementById('modalTitle').textContent = course.title;
+        document.getElementById('modalDescription').textContent = course.description;
+        document.getElementById('modalDuration').textContent = course.duration_weeks;
+        document.getElementById('modalSchedule').textContent = course.schedule;
+        document.getElementById('modalLevel').textContent = course.level;
+        document.getElementById('modalFormat').textContent = course.format;
+        document.getElementById('modalStart').textContent = course.start_date;
+        document.getElementById('modalSpots').textContent = course.spots_left;
+        document.getElementById('modalPrice').textContent = course.price + ' ₸';
+
+        document.getElementById('courseModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('courseModal').classList.add('hidden');
+    }
+
 
 </script>

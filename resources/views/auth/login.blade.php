@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lfxm00rAAAAAHK2Qegt6PPfC1Stu4D42Pg1QvSR"></script>
     <title>Кіру</title>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-100">
@@ -23,8 +24,16 @@
         </div>
         <button type="submit"
                 class="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold hover:bg-blue-600 transition">Кіру</button>
+        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
     </form>
     <p class="text-center text-gray-600 mt-4">Тіркелгіңіз жоқ па? <a href="{{route('register')}}" class="text-blue-500 font-semibold">Тіркелу</a></p>
 </div>
 </body>
 </html>
+<script>
+    grecaptcha.ready(function () {
+        grecaptcha.execute('6Lfxm00rAAAAAHK2Qegt6PPfC1Stu4D42Pg1QvSR', {action: 'login'}).then(function (token) {
+            document.getElementById('g-recaptcha-response').value = token;
+        });
+    });
+</script>

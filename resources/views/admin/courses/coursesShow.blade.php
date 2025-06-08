@@ -67,17 +67,31 @@
             <div class="border border-gray-700 rounded-xl mb-4">
                 <div class="flex justify-between items-center p-6 cursor-pointer toggle-accordion">
                     <h3 class="text-xl font-medium">{{ $program->name }}</h3>
-                    <button class="bg-teal-500 w-12 h-12 rounded-xl flex items-center justify-center icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white plus-icon" fill="none"
-                             viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white minus-icon hidden" fill="none"
-                             viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
-                        </svg>
-                    </button>
+
+                    <div class="flex items-center space-x-2">
+                        {{-- Edit батырмасы --}}
+                        <button
+                            class="edit-btn bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                            data-id="{{ $program->id }}"
+                            data-name="{{ e($program->name) }}"
+                            data-description="{{ e($program->description) }}"
+                            data-video="{{ $program->video_url }}"
+                        >
+                            Изменить
+                        </button>
+
+                        <button class="bg-teal-500 w-12 h-12 rounded-xl flex items-center justify-center icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white plus-icon" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white minus-icon hidden" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
                 <div class="px-6 pb-6 hidden content">
                     <p>{{ $program->description }}</p>
@@ -99,10 +113,85 @@
                 </div>
             </div>
         @endforeach
+
+    </div>
+    <!-- Модальнің өзі -->
+    <div id="edit-modal" class="fixed inset-0 bg-blue-50 bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
+            <button id="close-modal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-xl font-bold">&times;</button>
+
+            <h2 class="text-2xl mb-4 font-semibold">Редактировать программу</h2>
+
+            <form id="edit-form" method="POST" action="">
+                @csrf
+                @method('POST')
+
+                <input type="hidden" name="program_id" id="program_id">
+
+                <div class="mb-4">
+                    <label for="edit-name" class="block mb-1 font-medium">Название</label>
+                    <input type="text" name="name" id="edit-name" class="w-full border rounded px-3 py-2" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="edit-description" class="block mb-1 font-medium">Описание</label>
+                    <textarea name="description" id="edit-description" rows="4" class="w-full border rounded px-3 py-2"></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label for="edit-video_url" class="block mb-1 font-medium">Ссылка на видео (YouTube)</label>
+                    <input type="url" name="video_url" id="edit-video_url" class="w-full border rounded px-3 py-2">
+                </div>
+
+                <button type="submit" class="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition">
+                    Сохранить
+                </button>
+            </form>
+        </div>
     </div>
 
 </div>
 <script>
+
+    const modal = document.getElementById('edit-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const editForm = document.getElementById('edit-form');
+
+    // Батырмаларға оқиға қосу
+    document.querySelectorAll('.edit-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            // Бағдарлама мәліметтерін алу
+            const id = button.getAttribute('data-id');
+            const name = button.getAttribute('data-name');
+            const description = button.getAttribute('data-description');
+            const video = button.getAttribute('data-video');
+
+            // Модальды ашу
+            modal.classList.remove('hidden');
+
+            // Форманы толтыру
+            document.getElementById('program_id').value = id;
+            document.getElementById('edit-name').value = name;
+            document.getElementById('edit-description').value = description;
+            document.getElementById('edit-video_url').value = video;
+
+            // Форманың action-ін орнату (Laravel route)
+            editForm.action = `/admin/courses/${id}/update`;
+        });
+    });
+
+    // Модальді жабу
+    closeModalBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+    });
+
+    // Модальді сыртынан басқанда жабу
+    window.addEventListener('click', (e) => {
+        if(e.target === modal){
+            modal.classList.add('hidden');
+        }
+    });
+
     document.querySelectorAll('.toggle-accordion').forEach((toggle) => {
         toggle.addEventListener('click', () => {
             const content = toggle.parentElement.querySelector('.content');
@@ -126,3 +215,9 @@
         document.getElementById('feedback').scrollIntoView({ behavior: 'smooth' });
     });
 </script>
+<style>
+    #edit-modal {
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+    }
+</style>

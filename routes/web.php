@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Admin\TestQuestionController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminCourseController;
+use App\Http\Controllers\AdminSectionController;
+use App\Http\Controllers\AdminTopicController;
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
@@ -9,6 +12,9 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
+use App\Models\CourseAdminPanel;
+use App\Models\SectionAdminPanel;
+use App\Models\TopicAdminPanel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -61,6 +67,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/courses/show/{id}',[AdminController::class,'coursesShow'])->name('admin.coursesShow');
     Route::post('/admin/course/{course}/training-program',[AdminController::class,'courseTrainingProgram'])->name('admin.courseTrainingProgram');
 
+    Route::get('admin/courses/{course}/edit', [AdminController::class, 'edit'])->name('admin.trainingPrograms.edit');
+    Route::post('admin/courses/{course}/update', [AdminController::class, 'update'])->name('admin.trainingPrograms.update');
+
+
+
     Route::get('/admin/users/{user}/courses', [AdminController::class, 'userCourses'])->name('admin.users.userCourses');
     Route::get('/admin/users/{user}/edit-courses', [AdminController::class, 'editCourses'])->name('admin.users.editCourses');
     Route::post('/admin/users/{user}/update-courses', [AdminController::class, 'updateCourses'])->name('admin.users.updateCourses');
@@ -83,8 +94,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-
-Route::post('/ai-message', function (Request $request) {
+    Route::post('/ai-message', function (Request $request) {
     $userMessage = $request->input('message');
     $apiKey = env('GEMINI_API_KEY');
 
@@ -119,6 +129,6 @@ Route::post('/ai-message', function (Request $request) {
     return response()->json(['reply' => 'Қате болды. AI жауап берген жоқ.'], 500);
 });
 
-Route::get('/{any}', function () {
-    return view('index');
-})->where('any', '.*');
+//Route::get('/{any}', function () {
+//    return view('index');
+//})->where('any', '.*');
