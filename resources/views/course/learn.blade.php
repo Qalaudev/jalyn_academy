@@ -53,7 +53,7 @@
                 </div>
 
                 <div id="program-video" class="flex justify-center">
-                    @if($course->trainingPrograms->first()->video_url)
+                    @if($course->trainingPrograms->first() && $course->trainingPrograms->first()->video_url)
                         <iframe
                             width="720"
                             height="405"
@@ -64,12 +64,6 @@
                             class="w-full max-w-4xl rounded-lg shadow-lg"
                         ></iframe>
                     @endif
-                </div>
-
-                <div class="mt-6 text-center">
-                    <button id="mark-lesson-completed-btn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed">
-                        Өтілді
-                    </button>
                 </div>
 
                 {{-- Раздел компилятора --}}
@@ -102,6 +96,13 @@
                         <h4 class="text-xl font-semibold mb-2 text-gray-800">Вывод:</h4>
                         <pre id="code-output" class="bg-gray-800 text-green-300 p-3 rounded-md overflow-auto whitespace-pre-wrap"></pre>
                     </div>
+                </div>
+
+                {{-- Кнопка "Урок завершен" перемещена ниже компилятора --}}
+                <div class="mt-6 text-center">
+                    <button id="mark-lesson-completed-btn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed">
+                        Өтілді
+                    </button>
                 </div>
             </div>
         </main>

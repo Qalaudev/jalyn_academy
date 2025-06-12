@@ -59,10 +59,10 @@ class UserController extends Controller
 
         if ($this->authService->register($request->only('name', 'email', 'password'))) {
             // Тіркелу сәтті болса, home бетіне өту
-            return redirect()->route('navbar')->with('success', 'Тіркелу сәтті өтті!');
+            return redirect()->route('login')->with('success', 'Тіркелу сәтті өтті!');
         }
 
-        return redirect()->route('login')->with('error', 'Тіркелу сәтсіз болды.');
+        return redirect()->route('register')->with('error', 'Тіркелу сәтсіз болды.');
     }
 
     public function logout()
