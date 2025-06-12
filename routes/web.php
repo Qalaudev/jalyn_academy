@@ -6,12 +6,14 @@ use App\Http\Controllers\AdminCourseController;
 use App\Http\Controllers\AdminSectionController;
 use App\Http\Controllers\AdminTopicController;
 use App\Http\Controllers\CodeController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
+use App\Models\AdminNotification;
 use App\Models\CourseAdminPanel;
 use App\Models\SectionAdminPanel;
 use App\Models\TopicAdminPanel;
@@ -96,6 +98,13 @@ Route::middleware('auth')->group(function () {
 
     // Маршрут для компилятора
     Route::post('/run-code', [CompilerController::class, 'runCode'])->name('compiler.runCode');
+
+    // Notifications
+    Route::get('/admin/notification',function(){
+        $notifications = AdminNotification::latest()->get();
+        return view('admin.notifications.listNotifications',compact('notifications'));
+    })->name('admin.notifications');
+
 });
 
     Route::get('/course/{id}/learn',[CourseController::class,'courseLearn'])->name('course.learn');
@@ -149,6 +158,9 @@ Route::middleware('auth')->group(function () {
     \Log::error('Gemini API error', ['response' => $response->body()]);
     return response()->json(['reply' => 'Қате болды. AI жауап берген жоқ.'], 500);
 });
+
+    Route::post('/admin-notification',[ContactController::class,'send'])->name('contact.send');
+
 
 //Route::get('/{any}', function () {
 //    return view('index');

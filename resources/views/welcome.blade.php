@@ -322,21 +322,30 @@
 
                 <!-- Form section -->
                 <div class="w-full md:w-1/2 bg-[#1A2533] p-6 rounded-xl shadow-lg">
-                    <form class="space-y-4">
+                    <form id="contactForm" method="POST" action="{{ route('contact.send') }}" class="space-y-4">
+                        @csrf
                         <div>
                             <label class="block text-[#E0F2FE] mb-1">Атыңыз</label>
-                            <input type="text" class="w-full px-4 py-2 rounded-lg bg-[#243447] text-white border border-[#3C4F63] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]" placeholder="Атыңызды жазыңыз" />
+                            <input type="text" name="name" class="w-full px-4 py-2 rounded-lg bg-[#243447] text-white border border-[#3C4F63] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]" placeholder="Атыңызды жазыңыз" required />
                         </div>
                         <div>
                             <label class="block text-[#E0F2FE] mb-1">Электронды пошта</label>
-                            <input type="email" class="w-full px-4 py-2 rounded-lg bg-[#243447] text-white border border-[#3C4F63] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]" placeholder="email@site.kz" />
+                            <input type="email" name="email" class="w-full px-4 py-2 rounded-lg bg-[#243447] text-white border border-[#3C4F63] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]" placeholder="email@site.kz" required />
                         </div>
                         <div>
                             <label class="block text-[#E0F2FE] mb-1">Хабарлама</label>
-                            <textarea rows="4" class="w-full px-4 py-2 rounded-lg bg-[#243447] text-white border border-[#3C4F63] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]" placeholder="Қысқаша хабарлама..."></textarea>
+                            <textarea rows="4" name="description" class="w-full px-4 py-2 rounded-lg bg-[#243447] text-white border border-[#3C4F63] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]" placeholder="Қысқаша хабарлама..." required></textarea>
                         </div>
-                        <button type="submit" class="bg-teal-500 hover:bg-[#1E40AF] text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-300">Жіберу</button>
+
+                        <button type="submit" id="submitBtn" class="relative bg-teal-500 hover:bg-[#1E40AF] text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-300">
+                            <span id="btnText">Жіберу</span>
+                            <span id="btnLoader" class="hidden absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full"></span>
+                            <span id="btnSuccess" class="hidden text-green-300 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">&#10003;</span>
+                        </button>
                     </form>
+
+                    <div id="successMessage" class="mt-4 text-green-400 font-semibold hidden">Хабарлама сәтті жіберілді!</div>
+                    <div id="errorMessage" class="mt-4 text-red-400 font-semibold hidden">Қате шықты. Қайта көріңіз.</div>
                 </div>
             </div>
         </div>
@@ -483,6 +492,54 @@
     function closeModal() {
         document.getElementById('courseModal').classList.add('hidden');
     }
+
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const form = this;
+        const btnText = document.getElementById('btnText');
+        const btnLoader = document.getElementById('btnLoader');
+        const btnSuccess = document.getElementById('btnSuccess');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Бастапқы қалып
+        btnText.classList.add('hidden');
+        btnLoader.classList.remove('hidden');
+        successMessage.classList.add('hidden');
+        errorMessage.classList.add('hidden');
+
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json',
+                }
+            });
+
+            if (response.ok) {
+                btnLoader.classList.add('hidden');
+                btnSuccess.classList.remove('hidden');
+                successMessage.classList.remove('hidden');
+                form.reset();
+
+                setTimeout(() => {
+                    btnSuccess.classList.add('hidden');
+                    btnText.classList.remove('hidden');
+                }, 2000);
+            } else {
+                throw new Error("Сервер қатесі");
+            }
+        } catch (err) {
+            btnLoader.classList.add('hidden');
+            btnText.classList.remove('hidden');
+            errorMessage.classList.remove('hidden');
+        }
+    });
 
 
 </script>
