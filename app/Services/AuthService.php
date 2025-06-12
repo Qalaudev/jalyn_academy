@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthService
 {
@@ -14,14 +15,23 @@ class AuthService
         $this->userRepository = $userRepository;
     }
 
-    public function register(array $data)
+    /**
+     * Пайдаланушыны тіркеу
+     * @param array $data
+     * @return User
+     */
+    public function register(array $data): User
     {
         return $this->userRepository->createUser($data);
     }
 
-    public function login(array $credentials)
+    /**
+     * Пайдаланушыны логин ету
+     * @param array $credentials
+     * @return bool
+     */
+    public function login(array $credentials): bool
     {
         return Auth::attempt($credentials);
     }
-
 }

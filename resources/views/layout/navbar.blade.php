@@ -26,33 +26,34 @@
             </ul>
         </div>
 
+        {{-- Пайдаланушы батырмалары --}}
         <div class="relative flex items-center space-x-4">
             @auth
-                @if(Auth::user())
-                    <div class="relative inline-block text-left">
-                        <div onclick="toggleDropdown()" class="flex items-center space-x-3 cursor-pointer">
-                            <img src="{{ Auth::user()->avatar ?? asset('images/default-avatar.jpg') }}"
-                                 alt="User Avatar"
-                                 class="h-10 w-10 rounded-full border">
-                            <span class="text-gray-700">{{ Auth::user()->name }}</span>
-                        </div>
-                        <div id="adminDropdown"
-                             class="absolute right-0 top-full mt-2 w-48 bg-white border rounded-lg shadow-lg hidden z-50">
-                            @if(Auth::user()?->role?->name === 'Admin')
-                                <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-200">Админ Панель</a>
-                                <a href="{{ route('course_create_form') }}" class="block px-4 py-2 hover:bg-gray-200">Создать курс</a>
-                            @endif
-                                <a href="{{ route('certificates.index') }}" class="block px-4 py-2 hover:bg-gray-200">Менің сертификаттарым</a>
-
-                                <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="w-full text-left block px-4 py-2 hover:bg-gray-200">Выйти</button>
-                            </form>
-                        </div>
+                <div class="relative inline-block text-left">
+                    <div onclick="toggleDropdown()" class="flex items-center space-x-3 cursor-pointer">
+                        <img src="{{ Auth::user()->avatar ?? asset('images/default-avatar.jpg') }}"
+                             alt="User Avatar"
+                             class="h-10 w-10 rounded-full border">
+                        <span class="text-gray-700">{{ Auth::user()->name }}</span>
                     </div>
+                    <div id="adminDropdown"
+                         class="absolute right-0 top-full mt-2 w-48 bg-white border rounded-lg shadow-lg hidden z-50">
+                        @if(Auth::user()?->role?->name === 'Admin')
+                            <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-200">Админ Панель</a>
+                            <a href="{{ route('course_create_form') }}" class="block px-4 py-2 hover:bg-gray-200">Создать курс</a>
+                        @endif
 
+                        <a href="{{ route('certificates.index') }}" class="block px-4 py-2 hover:bg-gray-200">Менің сертификаттарым</a>
 
-                @endif
+                        {{-- ✅ Жаңа сілтеме: Профиль --}}
+                        <a href="{{ route('profile') }}" class="block px-4 py-2 hover:bg-gray-200">Менің профилім</a>
+
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="w-full text-left block px-4 py-2 hover:bg-gray-200">Выйти</button>
+                        </form>
+                    </div>
+                </div>
             @else
                 <a href="{{ route('login') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Войти</a>
                 <a href="{{ route('register') }}" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition">Регистрация</a>
@@ -61,6 +62,7 @@
     </div>
 </nav>
 
+{{-- Dropdown toggle --}}
 <script>
     function toggleDropdown() {
         let dropdown = document.getElementById('adminDropdown');
@@ -76,4 +78,3 @@
         }
     });
 </script>
-
