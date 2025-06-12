@@ -78,6 +78,15 @@ class CompilerController extends Controller
                     File::delete($filename);
                     break;
 
+                case 'php':
+                    $filename = $tempDir . '/' . Str::random(10) . '.php';
+                    File::put($filename, $code);
+                    $output = shell_exec("php " . escapeshellarg($filename) . " 2>&1");
+                    $status = 'success';
+                    File::delete($filename);
+                    break;
+
+
                 default:
                     $output = "Язык '{$language}' не поддерживается.";
             }
