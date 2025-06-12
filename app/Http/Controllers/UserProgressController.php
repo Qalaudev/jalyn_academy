@@ -7,6 +7,7 @@ use App\Models\UserProgress;
 use App\Models\Course;
 use App\Models\Certificate;
 use App\Models\TrainingProgram;
+use Illuminate\Support\Facades\Log;
 
 class UserProgressController extends Controller
 {
@@ -39,10 +40,18 @@ class UserProgressController extends Controller
 
         if ($progress->is_completed) {
             // Создаем сертификат при завершении курса
-            Certificate::firstOrCreate([
+            $certificate = Certificate::firstOrCreate([
                 'user_id' => auth()->id(),
                 'course_id' => $course->id,
-            ])->generateCertificate();
+            ]);
+
+            // Убедимся, что отношения user и course загружены
+            $certificate->loadMissing('user', 'course');
+            $certificate->generateCertificate();
+
+            if (!$certificate->save()) {
+                Log::error('Ошибка сохранения сертификата в методе update для пользователя ' . auth()->id() . ' и курса ' . $course->id);
+            }
         }
 
         return redirect()->back()->with('success', 'Прогресс успешно обновлен');
@@ -67,8 +76,12 @@ class UserProgressController extends Controller
                 ['total_lessons' => $course->trainingPrograms->count()]
             );
 
-            // 🛡 Защита от null
-            $completedLessonIds = $userProgress->completed_lesson_ids ?? [];
+            // Явно убеждаемся, что completed_lesson_ids является массивом
+            if (!is_array($userProgress->completed_lesson_ids)) {
+                $userProgress->completed_lesson_ids = [];
+            }
+
+            $completedLessonIds = $userProgress->completed_lesson_ids;
 
             if (!in_array($lessonId, $completedLessonIds)) {
                 $completedLessonIds[] = $lessonId;
@@ -77,13 +90,23 @@ class UserProgressController extends Controller
                 $userProgress->updateProgress();
 
                 if ($userProgress->is_completed) {
-                    Certificate::firstOrCreate([
+                    $certificate = Certificate::firstOrCreate([
                         'user_id' => $user->id,
                         'course_id' => $courseId,
-                    ])->generateCertificate();
+                    ]);
+
+                    // Убедимся, что отношения user и course загружены
+                    $certificate->loadMissing('user', 'course');
+                    $certificate->generateCertificate();
+
+                    if (!$certificate->save()) {
+                        // Логируем ошибку, если сохранение не удалось
+                        Log::error('Ошибка сохранения сертификата для пользователя ' . $user->id . ' и курса ' . $courseId);
+                    }
                 }
             }
 
+            // Заново извлекаем сертификат, чтобы убедиться, что он есть в ответе, если курс завершен
             $certificate = Certificate::where('user_id', $user->id)
                 ->where('course_id', $courseId)
                 ->first();
@@ -92,7 +115,8 @@ class UserProgressController extends Controller
                 'message' => 'Прогресс обновлен',
                 'progress_percentage' => round($userProgress->progress_percentage, 0),
                 'is_completed' => $userProgress->is_completed,
-                'certificate_id' => $userProgress->is_completed ? $certificate->id : null,
+                'certificate_id' => $userProgress->is_completed && $certificate ? $certificate->id : null,
+                'completed_lesson_ids' => $userProgress->completed_lesson_ids
             ]);
         } catch (\Exception $e) {
             return response()->json([

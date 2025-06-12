@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Http\Request;
 use App\Models\Certificate;
 
 class CertificateController extends Controller

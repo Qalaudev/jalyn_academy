@@ -13,7 +13,7 @@
                     </span>
                 </li>
 
-                @foreach($course->trainingPrograms as $program)
+                @foreach($course->trainingPrograms as $index => $program)
                     <li>
                         <button
                             class="w-full text-left py-2 px-4 hover:bg-green-100 rounded-lg cursor-pointer focus:outline-none program-btn"
@@ -23,8 +23,12 @@
                             data-video="{{ $program->video_url ? str_replace('watch?v=', 'embed/', $program->video_url) : '' }}"
                             data-lesson-id="{{ $program->id }}"
                             data-course-id="{{ $course->id }}"
+                            data-lesson-order="{{ $index }}"
                         >
-                            {{ $program->name }}
+                            <span class="flex items-center justify-between">
+                                <span>{{ $program->name }}</span>
+                                <span class="lesson-status-icon ml-2"></span>
+                            </span>
                         </button>
                     </li>
                 @endforeach
@@ -61,21 +65,8 @@
 
                 <div class="mt-6 text-center">
                     <button id="mark-lesson-completed-btn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed">
-                        Урок завершен
+                        Өтілді
                     </button>
-                    <div id="certificate-section" class="mt-4">
-                        @if($certificate)
-                            <p class="text-green-600 mt-2">Курс аяқталды! Сіз сертификат алдыңыз.</p>
-                            <a href="{{ route('certificates.show', $certificate->id) }}" class="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Сертификатты көру/Жүктеу
-                            </a>
-                        @elseif($userProgress->is_completed)
-                            <p class="text-green-600 mt-2">Курс аяқталды! Сіз сертификат алуға дайынсыз.</p>
-                            <a href="javascript:void(0);" id="generate-certificate-btn" class="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Сертификатты генерациялау
-                            </a>
-                        @endif
-                    </div>
                 </div>
             </div>
         </main>
@@ -86,29 +77,72 @@
 <script>
     let currentLessonId = {{ $course->trainingPrograms->first() ? $course->trainingPrograms->first()->id : 'null' }};
     const courseId = {{ $course->id }};
+    let completedLessonIds = @json($userProgress->completed_lesson_ids ?? []);
 
     const markLessonBtn = document.getElementById('mark-lesson-completed-btn');
-    if (currentLessonId) {
-        markLessonBtn.disabled = false;
-    } else {
-        markLessonBtn.disabled = true;
+    const programButtons = document.querySelectorAll('.program-btn');
+
+    function updateLessonStates() {
+        programButtons.forEach(button => {
+            const lessonId = parseInt(button.getAttribute('data-lesson-id'));
+            const lessonOrder = parseInt(button.getAttribute('data-lesson-order'));
+            const statusIcon = button.querySelector('.lesson-status-icon');
+
+            button.classList.remove('locked-lesson', 'completed-lesson');
+            button.removeAttribute('title');
+            button.style.pointerEvents = '';
+            button.style.opacity = '1';
+            statusIcon.innerHTML = '';
+
+            const isCompleted = completedLessonIds.includes(lessonId);
+            const isFirstLesson = lessonOrder === 0;
+            const previousLessonId = programButtons[lessonOrder - 1] ? parseInt(programButtons[lessonOrder - 1].getAttribute('data-lesson-id')) : null;
+            const isPreviousLessonCompleted = previousLessonId !== null && completedLessonIds.includes(previousLessonId);
+
+            if (isCompleted) {
+                button.classList.add('completed-lesson');
+                statusIcon.innerHTML = '<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+                button.disabled = false;
+            } else if (!isFirstLesson && !isPreviousLessonCompleted) {
+                button.classList.add('locked-lesson');
+                button.style.opacity = '0.5';
+                button.style.pointerEvents = 'none';
+                button.setAttribute('title', 'Заблокировано: завершите предыдущий урок');
+                statusIcon.innerHTML = '<svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 7v2m0 0V7a3 3 0 00-3-3H7a3 3 0 00-3 3v2m8 0V7a3 3 0 013-3h1a3 3 0 013 3v2"></path></svg>';
+            } else {
+                button.disabled = false;
+            }
+
+            if (currentLessonId === lessonId) {
+                markLessonBtn.disabled = isCompleted;
+                markLessonBtn.style.display = isCompleted ? 'none' : '';
+            }
+        });
     }
 
-    document.querySelectorAll('.program-btn').forEach(button => {
-        button.addEventListener('click', () => {
+    updateLessonStates();
+
+    programButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const lessonId = parseInt(button.getAttribute('data-lesson-id'));
+            const lessonOrder = parseInt(button.getAttribute('data-lesson-order'));
+
+            const isFirstLesson = lessonOrder === 0;
+            const previousLessonId = programButtons[lessonOrder - 1] ? parseInt(programButtons[lessonOrder - 1].getAttribute('data-lesson-id')) : null;
+            const isPreviousLessonCompleted = previousLessonId !== null && completedLessonIds.includes(previousLessonId);
+
+            if (!isFirstLesson && !isPreviousLessonCompleted && !completedLessonIds.includes(lessonId)) {
+                event.preventDefault();
+                return;
+            }
+
             const name = button.getAttribute('data-name');
             const description = button.getAttribute('data-description');
             const videoUrl = button.getAttribute('data-video');
-            currentLessonId = button.getAttribute('data-lesson-id'); // Обновляем текущий ID урока
+            currentLessonId = lessonId;
 
-            // Жаңарту орталықтағы тақырыпты
             document.getElementById('program-title').innerText = name;
-
-            // Сипаттаманы жаңарту
-            // nl2br үшін <br> қосу керек болса, бекендте қосылды, мұнда жай текст қойылады
             document.getElementById('program-description').innerHTML = description.replace(/\n/g, "<br>");
-
-            // Видео жаңарту
             const videoContainer = document.getElementById('program-video');
             if(videoUrl) {
                 videoContainer.innerHTML = `
@@ -123,27 +157,20 @@
                     ></iframe>
                 `;
             } else {
-                videoContainer.innerHTML = ''; // Егер видео жоқ болса, алып тастау
+                videoContainer.innerHTML = '';
             }
 
-            // Скрыть/показать кнопку "Урок завершен" в зависимости от того, есть ли текущий урок
-            const markLessonBtn = document.getElementById('mark-lesson-completed-btn');
-            if (currentLessonId) {
-                markLessonBtn.disabled = false; // Включить кнопку
-            } else {
-                markLessonBtn.disabled = true; // Отключить кнопку, если урок не выбран
-            }
+            markLessonBtn.disabled = completedLessonIds.includes(currentLessonId);
+            markLessonBtn.style.display = completedLessonIds.includes(currentLessonId) ? 'none' : '';
         });
     });
 
-    // Обработчик для кнопки "Урок завершен"
     document.getElementById('mark-lesson-completed-btn').addEventListener('click', function() {
         if (!currentLessonId) {
             console.warn('Не выбран урок для отметки');
             return;
         }
 
-        // Отправка AJAX-запроса для обновления прогресса
         const requestBody = {
             course_id: courseId,
             lesson_id: currentLessonId
@@ -160,57 +187,21 @@
         })
         .then(response => response.json())
         .then(data => {
-            // Обновление прогресса на странице
             document.querySelector('.progress-percentage-text').innerText = `Сіздің прогрессіңіз: ${data.progress_percentage}%`;
-            document.querySelector('.bg-green-600.h-25.rounded-full').style.width = `${data.progress_percentage}%`;
 
-            // Если курс завершен, показать ссылку на сертификат
-            const certificateSection = document.getElementById('certificate-section');
-            if (data.is_completed) {
-                // Убедимся, что внутри контейнера нет кнопки, если она уже есть
-                if (!certificateSection.querySelector('a[href*="certificates"]')) {
-                    // Если сертификат уже создан, показывать ссылку на просмотр
-                    // Иначе, показывать кнопку для генерации
-                    if (data.certificate_id) {
-                        certificateSection.innerHTML = `
-                            <p class="text-green-600 mt-2">Курс аяқталды! Сіз сертификат алдыңыз.</p>
-                            <a href="/certificates/${data.certificate_id}" class="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Сертификатты көру/Жүктеу
-                            </a>
-                        `;
-                    } else {
-                         // Этого блока по идее быть не должно, т.к. firstOrCreate уже генерирует.
-                         // Но на всякий случай, если логика изменится или произойдет что-то непредвиденное.
-                        certificateSection.innerHTML = `
-                            <p class="text-green-600 mt-2">Курс аяқталды! Сіз сертификат алуға дайынсыз.</p>
-                            <a href="javascript:void(0);" id="generate-certificate-btn" class="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Сертификатты генерациялау
-                            </a>
-                        `;
-                    }
-                }
-            } else {
-                certificateSection.innerHTML = ''; // Очищаем контейнер, если курс не завершен
+            const progressBar = document.querySelector('.bg-green-600.h-2\\.5.rounded-full');
+            if (progressBar) {
+                progressBar.style.width = `${data.progress_percentage}%`;
             }
-            // Отключить кнопку после завершения урока (если нужно)
-            document.getElementById('mark-lesson-completed-btn').disabled = true;
+
+            completedLessonIds = data.completed_lesson_ids || [];
+
+            updateLessonStates();
+
+            document.getElementById('mark-lesson-completed-btn').style.display = 'none';
         })
         .catch(error => {
             console.error('Ошибка при обновлении прогресса:', error);
         });
-    });
-
-    // Обработчик для кнопки 'Сертификатты генерациялау'
-    // Этот блок будет нужен, если сертификат не генерируется автоматически при 100%.
-    // Сейчас он генерируется в контроллере markLessonCompleted, так что этот блок может быть избыточен.
-    document.addEventListener('click', function(event) {
-        if (event.target && event.target.id === 'generate-certificate-btn') {
-            // Здесь можно добавить AJAX-запрос для принудительной генерации сертификата,
-            // если он не был создан автоматически. Сейчас это не требуется,
-            // так как Certificate::firstOrCreate() делает это в контроллере markLessonCompleted.
-            alert('Сертификат генерацияланып жатыр...');
-            // Перенаправить на страницу сертификатов после генерации или обновить UI
-            window.location.href = '{{ route('certificates.index') }}';
-        }
     });
 </script>
