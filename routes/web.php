@@ -81,6 +81,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/users/{user}/edit-courses', [AdminController::class, 'editCourses'])->name('admin.users.editCourses');
     Route::post('/admin/users/{user}/update-courses', [AdminController::class, 'updateCourses'])->name('admin.users.updateCourses');
 
+    Route::get('/profile/change-password', [UserController::class, 'changePasswordForm'])->name('profile.change_password');
+    Route::post('/profile/change-password', [UserController::class, 'changePassword'])->name('profile.update_password');
+
     Route::post('/progress/mark-lesson-completed', [UserProgressController::class, 'markLessonCompleted'])->name('progress.markLessonCompleted');
     Route::get('/progress', [UserProgressController::class, 'index'])->name('progress.index');
     Route::get('/progress/{course}', [UserProgressController::class, 'show'])->name('progress.show');
