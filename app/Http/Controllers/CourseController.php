@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use App\Models\Menu;
+use App\Models\TrainingProgram;
+use App\Models\UserProgress;
+use App\Models\Certificate;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -15,6 +18,31 @@ class CourseController extends Controller
     {
         $courses = auth()->user()->courses;
         return view('course.index', compact('courses'));
+    }
+
+    public function downloadCertificate($id)
+    {
+        $course = Course::findOrFail($id);
+        $user = auth()->user();
+
+        // Прогресс по урокам (если считаешь по lessons)
+        $total = $course->lessons()->count();
+        $completed = $user->trainingPrograms()->whereIn('training_programs_id', $course->lessons->pluck('id'))->count();
+
+        $progress = $total > 0 ? intval(($completed / $total) * 100) : 0;
+
+        if ($progress < 100) {
+            abort(403, 'Курс толық аяқталмаған. Сертификат қолжетімді емес.');
+        }
+
+        $data = [
+            'name' => $user->name,
+            'course' => $course->title,
+            'date' => now()->format('d.m.Y'),
+        ];
+
+        $pdf = Pdf::loadView('certificate', $data);
+        return $pdf->download("certificate-{$course->id}.pdf");
     }
 
     /**
@@ -116,7 +144,18 @@ class CourseController extends Controller
     public function courseLearn($id)
     {
         $course = Course::with('trainingPrograms.menus')->findOrFail($id);
-        return view('course.learn', compact('course'));
+        $user = auth()->user();
+
+        $userProgress = UserProgress::firstOrCreate(
+            ['user_id' => $user->id, 'course_id' => $course->id],
+            ['total_lessons' => $course->trainingPrograms->count()]
+        );
+
+        $certificate = Certificate::where('user_id', $user->id)
+            ->where('course_id', $course->id)
+            ->first();
+
+        return view('course.learn', compact('course', 'userProgress', 'certificate'));
     }
 
 

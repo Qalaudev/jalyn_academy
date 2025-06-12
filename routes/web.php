@@ -19,6 +19,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserProgressController;
+use App\Http\Controllers\CertificateController;
 
 Route::get('/', function () {
     return view('index');
@@ -58,7 +60,11 @@ Route::prefix('courses')->group(function () {
     Route::put('/edit/{id}', [CourseController::class, 'updateCourse'])->name('course_update');
     Route::delete('/delete/{id}', [CourseController::class, 'destroyCourse'])->name('course_delete');
     Route::get('/show/{id}', [CourseController::class, 'showCourse'])->name('course_show');
+    Route::get('/{id}/certificate', [CourseController::class, 'downloadCertificate'])->name('course.certificate');
+
 });
+
+Route::get('/verify-certificate/{certificateNumber}', [CertificateController::class, 'verify'])->name('certificates.verify');
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
@@ -70,11 +76,19 @@ Route::middleware('auth')->group(function () {
     Route::get('admin/courses/{course}/edit', [AdminController::class, 'edit'])->name('admin.trainingPrograms.edit');
     Route::post('admin/courses/{course}/update', [AdminController::class, 'update'])->name('admin.trainingPrograms.update');
 
-
-
     Route::get('/admin/users/{user}/courses', [AdminController::class, 'userCourses'])->name('admin.users.userCourses');
     Route::get('/admin/users/{user}/edit-courses', [AdminController::class, 'editCourses'])->name('admin.users.editCourses');
     Route::post('/admin/users/{user}/update-courses', [AdminController::class, 'updateCourses'])->name('admin.users.updateCourses');
+
+    Route::post('/progress/mark-lesson-completed', [UserProgressController::class, 'markLessonCompleted'])->name('progress.markLessonCompleted');
+    Route::get('/progress', [UserProgressController::class, 'index'])->name('progress.index');
+    Route::get('/progress/{course}', [UserProgressController::class, 'show'])->name('progress.show');
+    Route::post('/progress/{course}', [UserProgressController::class, 'update'])->name('progress.update');
+
+    // Маршруты для сертификатов
+    Route::get('/certificates', [CertificateController::class, 'index'])->name('certificates.index');
+    Route::get('/certificates/{certificate}', [CertificateController::class, 'show'])->name('certificates.show');
+    Route::get('/certificates/{certificate}/download', [CertificateController::class, 'download'])->name('certificates.download');
 });
 
     Route::get('/course/{id}/learn',[CourseController::class,'courseLearn'])->name('course.learn');
