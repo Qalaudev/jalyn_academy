@@ -13,7 +13,8 @@
                     </span>
                 </li>
 
-                @foreach($course->trainingPrograms as $index => $program)
+                {{-- Проверяем, есть ли программы обучения (уроки) для курса --}}
+                @forelse($course->trainingPrograms as $index => $program)
                     <li>
                         <button
                             class="w-full text-left py-2 px-4 hover:bg-green-100 rounded-lg cursor-pointer focus:outline-none program-btn"
@@ -31,7 +32,9 @@
                             </span>
                         </button>
                     </li>
-                @endforeach
+                @empty
+                    <li class="block py-2 px-4 text-gray-500">Уроки для этого курса не найдены.</li>
+                @endforelse
             </ul>
         </aside>
 
@@ -50,7 +53,7 @@
                 </div>
 
                 <div id="program-video" class="flex justify-center">
-                    @if($course->trainingPrograms->first() && $course->trainingPrograms->first()->video_url)
+                    @if($course->trainingPrograms->first()->video_url)
                         <iframe
                             width="720"
                             height="405"
@@ -67,6 +70,38 @@
                     <button id="mark-lesson-completed-btn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed">
                         Өтілді
                     </button>
+                </div>
+
+                {{-- Раздел компилятора --}}
+                <div class="mt-12 p-6 bg-gray-100 rounded-lg shadow-inner">
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Тренажер кода</h3>
+
+                    <div class="mb-4">
+                        <label for="language-select" class="block text-gray-700 text-sm font-bold mb-2">Выберите язык:</label>
+                        <select id="language-select" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="java">Java</option>
+                            <option value="cpp">C++</option>
+                            <option value="php">PHP</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="code-input" class="block text-gray-700 text-sm font-bold mb-2">Введите ваш код:</label>
+                        <textarea id="code-input" rows="15" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline font-mono text-sm" placeholder="Напишите ваш код здесь..."></textarea>
+                    </div>
+
+                    <div class="text-center">
+                        <button id="run-code-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed">
+                            Запустить код
+                        </button>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-gray-200 rounded-lg shadow-inner">
+                        <h4 class="text-xl font-semibold mb-2 text-gray-800">Вывод:</h4>
+                        <pre id="code-output" class="bg-gray-800 text-green-300 p-3 rounded-md overflow-auto whitespace-pre-wrap"></pre>
+                    </div>
                 </div>
             </div>
         </main>
@@ -203,5 +238,44 @@
         .catch(error => {
             console.error('Ошибка при обновлении прогресса:', error);
         });
+    });
+
+    // Инициализация обработчика для кнопки "Запустить код"
+    document.getElementById('run-code-btn').addEventListener('click', async function() {
+        const language = document.getElementById('language-select').value;
+        const code = document.getElementById('code-input').value;
+        const outputDiv = document.getElementById('code-output');
+        const runCodeBtn = document.getElementById('run-code-btn');
+
+        outputDiv.innerText = 'Запуск кода...';
+        outputDiv.style.color = 'yellow';
+        runCodeBtn.disabled = true; // Отключаем кнопку во время выполнения
+
+        try {
+            const response = await fetch('{{ route('compiler.runCode') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ language, code })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                outputDiv.innerText = data.output;
+                outputDiv.style.color = data.status === 'success' ? 'greenyellow' : 'red';
+            } else {
+                outputDiv.innerText = `Ошибка (${response.status}): ${data.error || data.message || 'Неизвестная ошибка'}`;
+                outputDiv.style.color = 'red';
+            }
+        } catch (error) {
+            console.error('Ошибка при выполнении кода:', error);
+            outputDiv.innerText = 'Произошла ошибка при отправке запроса к компилятору.';
+            outputDiv.style.color = 'red';
+        } finally {
+            runCodeBtn.disabled = false; // Включаем кнопку обратно
+        }
     });
 </script>

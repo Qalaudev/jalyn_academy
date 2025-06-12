@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserProgressController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\CompilerController;
 
 Route::get('/', function () {
     return view('index');
@@ -89,6 +90,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/certificates', [CertificateController::class, 'index'])->name('certificates.index');
     Route::get('/certificates/{certificate}', [CertificateController::class, 'show'])->name('certificates.show');
     Route::get('/certificates/{certificate}/download', [CertificateController::class, 'download'])->name('certificates.download');
+
+    // Маршрут для компилятора
+    Route::post('/run-code', [CompilerController::class, 'runCode'])->name('compiler.runCode');
 });
 
     Route::get('/course/{id}/learn',[CourseController::class,'courseLearn'])->name('course.learn');
