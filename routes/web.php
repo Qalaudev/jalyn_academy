@@ -73,7 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/courses',[AdminController::class,'courses'])->name('admin.courses');
     Route::get('/admin/courses/show/{id}',[AdminController::class,'coursesShow'])->name('admin.coursesShow');
     Route::post('/admin/course/{course}/training-program',[AdminController::class,'courseTrainingProgram'])->name('admin.courseTrainingProgram');
-
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
     Route::get('admin/courses/{course}/edit', [AdminController::class, 'edit'])->name('admin.trainingPrograms.edit');
     Route::post('admin/courses/{course}/update', [AdminController::class, 'update'])->name('admin.trainingPrograms.update');
 

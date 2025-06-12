@@ -17,25 +17,21 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-700 text-lg">
                 <div>
                     <h2 class="text-2xl font-bold mb-4 text-gray-800">📬 Бізге хат жазыңыз</h2>
-                    <p class="mb-2">Электронды пошта: <a href="mailto:info@example.com" class="text-blue-600 hover:underline">info@example.com</a></p>
-                    <p class="mb-2">Телефон: <a href="tel:+77001234567" class="text-blue-600 hover:underline">+7 (700) 123-45-67</a></p>
+                    <p class="mb-2">Электронды пошта: <a href="mailto:info@example.com" class="text-blue-600 hover:underline">jalynacademy@gmail.com</a></p>
+                    <p class="mb-2">Телефон: <a href="tel:+77001234567" class="text-blue-600 hover:underline">+7 (747) 474 3456</a></p>
                     <p class="mb-2">WhatsApp: <a href="https://wa.me/77001234567" target="_blank" class="text-blue-600 hover:underline">Жазу</a></p>
                 </div>
 
                 <div>
                     <h2 class="text-2xl font-bold mb-4 text-gray-800">📍 Мекен-жай</h2>
-                    <p class="mb-2">Қазақстан, Астана қаласы</p>
-                    <p class="mb-2">Байтерек көшесі, 12, 3-қабат</p>
+                    <p class="mb-2">Қазақстан, Алматы қаласы</p>
+                    <p class="mb-2">Жандосов көшесі, 55, 5-қабат</p>
                     <p class="text-sm text-gray-500 mt-4">Жұмыс уақыты: Дс–Жм 09:00–18:00</p>
                 </div>
             </div>
 
             <div class="mt-10">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2924.147343763485!2d71.41984641527123!3d51.12820717957314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424580cf5a0fa059%3A0x55692e7ae6c66f80!2sBaiterek%20Tower!5e0!3m2!1sen!2skz!4v1629641767980!5m2!1sen!2skz"
-                    width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
-                    class="rounded-xl shadow">
-                </iframe>
+                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A98748be18bf772f63e245596ca124df49068c93949a18bfe0021f3fbb0c5756a&amp;source=constructor" width="925" height="400" frameborder="0"></iframe>
             </div>
         </div>
     </div>

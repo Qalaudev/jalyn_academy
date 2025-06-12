@@ -22,7 +22,6 @@ class UserController extends Controller
         return response()->json(Auth::user());
     }
 
-
     public function login()
     {
         return view('auth.login');
@@ -38,10 +37,9 @@ class UserController extends Controller
         if ($this->authService->login($request->only('email', 'password'))) {
             return redirect()->route('home');
         }
-        return redirect()->route('login')->withErrors(['email' => 'Кіру деректері дұрыс емес!']);
+
+        return back()->withErrors(['email' => 'Логин немесе пароль қате жазылды'])->withInput();
     }
-
-
 
     public function register()
     {
@@ -50,27 +48,37 @@ class UserController extends Controller
 
     public function authorization(Request $request)
     {
-        // платформаға тіркелу функциясы
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|email',
             'password' => 'required|min:6'
         ]);
 
-        if ($this->authService->register($request->only('name', 'email', 'password'))) {
-            // Тіркелу сәтті болса, home бетіне өту
-            return redirect()->route('login')->with('success', 'Тіркелу сәтті өтті!');
+        // Пайдаланушыны тіркеу және User моделін қайтару
+        $user = $this->authService->register($request->only('name', 'email', 'password'));
+
+        if ($user) {
+            // Жаңа тіркелген қолданушыны бірден авторизациялау
+            Auth::login($user);
+
+            // Басты бетке бағыттау
+            return redirect()->route('home')->with('success', 'Қош келдіңіз!');
         }
 
+        // Егер тіркелу сәтсіз болса
         return redirect()->route('register')->with('error', 'Тіркелу сәтсіз болды.');
     }
 
     public function logout()
     {
         Auth::logout();
-//        request()->session()->invalidate();
-//        request()->session()->regenerateToken();
         return redirect()->route('home');
     }
+    public function profile()
+    {
+        $user = Auth::user(); // Қазіргі қолданушы
 
+        return view('profile.index', compact('user'));
+    }
 }
+
