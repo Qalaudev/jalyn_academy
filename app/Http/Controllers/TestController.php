@@ -23,12 +23,10 @@ class TestController extends Controller
             $selectedAnswers = $request->input("question_{$question->id}", []);
             $correctAnswers = $question->answers->where('is_correct', true)->pluck('id')->toArray();
 
-            // Convert selectedAnswers to array if it's not already (e.g., if only one checkbox was selected)
             if (!is_array($selectedAnswers)) {
                 $selectedAnswers = [$selectedAnswers];
             }
 
-            // Check if all correct answers are selected and no incorrect answers are selected
             $isCorrect = empty(array_diff($correctAnswers, $selectedAnswers)) && empty(array_diff($selectedAnswers, $correctAnswers));
 
             if ($isCorrect) {
@@ -36,9 +34,14 @@ class TestController extends Controller
             }
         }
 
+        // Получаем ID курса через связку trainingProgram → course
+        $courseId = $trainingProgram->course_id;
+
         return view('test.result', [
             'total' => $questions->count(),
-            'score' => $score
+            'score' => $score,
+            'course_id' => $courseId,
         ]);
     }
+
 }
