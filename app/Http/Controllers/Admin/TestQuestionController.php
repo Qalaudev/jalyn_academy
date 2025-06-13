@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Menu;
+use App\Models\TrainingProgram;
 use App\Models\TestQuestion;
 use App\Models\TestAnswer;
 use Illuminate\Http\Request;
@@ -18,28 +18,32 @@ class TestQuestionController extends Controller
 
     public function create()
     {
-        $menus = Menu::all();
-        return view('admin.questions.create', compact('menus'));
+        $trainingPrograms = TrainingProgram::all();
+        return view('admin.questions.create', compact('trainingPrograms'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'menu_id' => 'required|exists:menus,id',
+            'training_program_id' => 'required|exists:training_programs,id',
             'question' => 'required|string',
+            'answers' => 'required|array|min:1',
             'answers.*' => 'required|string',
-            'correct' => 'required|integer|min:0|max:3',
+            'correct_answers' => 'array',
+            'correct_answers.*' => 'integer|min:0|max:3',
         ]);
 
         $question = TestQuestion::create([
-            'menu_id' => $request->menu_id,
+            'training_program_id' => $request->training_program_id,
             'question' => $request->question,
         ]);
+
+        $correctAnswers = $request->input('correct_answers', []);
 
         foreach ($request->answers as $i => $answer) {
             $question->answers()->create([
                 'answer' => $answer,
-                'is_correct' => $i == $request->correct,
+                'is_correct' => in_array($i, $correctAnswers),
             ]);
         }
 
@@ -48,30 +52,34 @@ class TestQuestionController extends Controller
 
     public function edit(TestQuestion $question)
     {
-        $menus = Menu::all();
+        $trainingPrograms = TrainingProgram::all();
         $question->load('answers');
-        return view('admin.questions.edit', compact('question', 'menus'));
+        return view('admin.questions.edit', compact('question', 'trainingPrograms'));
     }
 
     public function update(Request $request, TestQuestion $question)
     {
         $request->validate([
-            'menu_id' => 'required|exists:menus,id',
+            'training_program_id' => 'required|exists:training_programs,id',
             'question' => 'required|string',
+            'answers' => 'required|array|min:1',
             'answers.*' => 'required|string',
-            'correct' => 'required|integer|min:0|max:3',
+            'correct_answers' => 'array',
+            'correct_answers.*' => 'integer|min:0|max:3',
         ]);
 
         $question->update([
-            'menu_id' => $request->menu_id,
+            'training_program_id' => $request->training_program_id,
             'question' => $request->question,
         ]);
 
         $question->answers()->delete();
+        $correctAnswers = $request->input('correct_answers', []);
+
         foreach ($request->answers as $i => $answer) {
             $question->answers()->create([
                 'answer' => $answer,
-                'is_correct' => $i == $request->correct,
+                'is_correct' => in_array($i, $correctAnswers),
             ]);
         }
 

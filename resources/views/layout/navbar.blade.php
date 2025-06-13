@@ -39,8 +39,8 @@
                     <div id="adminDropdown"
                          class="absolute right-0 top-full mt-2 w-48 bg-white border rounded-lg shadow-lg hidden z-50">
                         @if(Auth::user()?->role?->name === 'Admin')
-                            <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-200">Админ Панель</a>
-                            <a href="{{ route('course_create_form') }}" class="block px-4 py-2 hover:bg-gray-200">Создать курс</a>
+                            <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-200">Админ Панелі</a>
+                            <a href="{{ route('course_create_form') }}" class="block px-4 py-2 hover:bg-gray-200">Курс Қосу</a>
                         @endif
 
                         <a href="{{ route('certificates.index') }}" class="block px-4 py-2 hover:bg-gray-200">Менің сертификаттарым</a>

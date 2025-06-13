@@ -118,8 +118,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/execute-php', [CodeController::class, 'executePHP']);
     Route::post('/execute-python', [CodeController::class, 'executePython']);
 
-    Route::get('/test/{menu}', [TestController::class, 'show'])->name('test.show');
-    Route::post('/test/{menu}/submit', [TestController::class, 'submit'])->name('test.submit');
+    Route::get('/test/{trainingProgram}', [TestController::class, 'show'])->name('test.show');
+    Route::post('/test/{trainingProgram}/submit', [TestController::class, 'submit'])->name('test.submit');
 
     // Админка (можно через resource)
     Route::resource('admin/questions', TestQuestionController::class);
