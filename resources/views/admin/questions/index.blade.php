@@ -14,6 +14,7 @@
         <tr>
             <th class="px-6 py-3 border">ID</th>
             <th class="px-6 py-3 border">Сұрақ</th>
+            <th class="px-6 py-3 border">Бағыт (Training Program)</th>
             <th class="px-6 py-3 border">Әрекет</th>
         </tr>
         </thead>
@@ -22,6 +23,7 @@
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                 <td class="px-6 py-4 border">{{ $question->id }}</td>
                 <td class="px-6 py-4 border">{{ $question->question }}</td>
+                <td class="px-6 py-4 border">{{ $question->trainingProgram->name ?? 'N/A' }}</td>
                 <td class="px-6 py-4 border">
                     <a href="{{ route('questions.edit', $question->id) }}" class="text-blue-600 hover:text-blue-700">Өзгерту</a>
                     |

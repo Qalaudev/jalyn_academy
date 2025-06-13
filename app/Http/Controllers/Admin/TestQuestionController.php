@@ -12,14 +12,15 @@ class TestQuestionController extends Controller
 {
     public function index()
     {
-        $questions = TestQuestion::with('answers')->latest()->get();
+        $questions = TestQuestion::with(['answers', 'trainingProgram'])->latest()->get();
         return view('admin.questions.index', compact('questions'));
     }
 
     public function create()
     {
         $trainingPrograms = TrainingProgram::all();
-        return view('admin.questions.create', compact('trainingPrograms'));
+        $questions = TestQuestion::with('trainingProgram')->latest()->get();
+        return view('admin.questions.create', compact('trainingPrograms', 'questions'));
     }
 
     public function store(Request $request)

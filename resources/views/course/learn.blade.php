@@ -33,7 +33,7 @@
                         </button>
                     </li>
                 @empty
-                    <li class="block py-2 px-4 text-gray-500">Уроки для этого курса не найдены.</li>
+                    <li class="block py-2 px-4 text-gray-500">Бұл курс үшін сабақтар табылмады.</li>
                 @endforelse
             </ul>
         </aside>
@@ -47,10 +47,6 @@
                 </div>
 
                 <h1 id="program-title" class="text-3xl font-bold mb-4">{{ $course->trainingPrograms->first()->name ?? 'Бағдарлама таңдалмаған' }}</h1>
-
-                <div id="program-description" class="text-gray-600 mb-6">
-                    {!! nl2br(e($course->trainingPrograms->first()->description ?? '')) !!}
-                </div>
 
                 <div id="program-video" class="flex justify-center">
                     @if($course->trainingPrograms->first() && $course->trainingPrograms->first()->video_url)
@@ -66,12 +62,16 @@
                     @endif
                 </div>
 
+                <div id="program-description" class="text-gray-600 mt-6">
+                    {!! nl2br(e($course->trainingPrograms->first()->description ?? '')) !!}
+                </div>
+
                 {{-- Раздел компилятора --}}
                 <div class="mt-12 p-6 bg-gray-100 rounded-lg shadow-inner">
-                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Тренажер кода</h3>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Код жаттықтырушы</h3>
 
                     <div class="mb-4">
-                        <label for="language-select" class="block text-gray-700 text-sm font-bold mb-2">Выберите язык:</label>
+                        <label for="language-select" class="block text-gray-700 text-sm font-bold mb-2">Тілді Танданыз:</label>
                         <select id="language-select" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                             <option value="python">Python</option>
                             <option value="javascript">JavaScript</option>
@@ -82,18 +82,18 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="code-input" class="block text-gray-700 text-sm font-bold mb-2">Введите ваш код:</label>
+                        <label for="code-input" class="block text-gray-700 text-sm font-bold mb-2">Кодыңызды енгізіңіз:</label>
                         <textarea id="code-input" rows="15" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline font-mono text-sm" placeholder="Напишите ваш код здесь..."></textarea>
                     </div>
 
                     <div class="text-center">
                         <button id="run-code-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed">
-                            Запустить код
+                            Кодты іске қосыңыз
                         </button>
                     </div>
 
                     <div class="mt-6 p-4 bg-gray-200 rounded-lg shadow-inner">
-                        <h4 class="text-xl font-semibold mb-2 text-gray-800">Вывод:</h4>
+                        <h4 class="text-xl font-semibold mb-2 text-gray-800">Қорытынды:</h4>
                         <pre id="code-output" class="bg-gray-800 text-green-300 p-3 rounded-md overflow-auto whitespace-pre-wrap"></pre>
                     </div>
                 </div>
