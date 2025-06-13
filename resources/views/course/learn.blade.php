@@ -66,6 +66,14 @@
                     {!! nl2br(e($course->trainingPrograms->first()->description ?? '')) !!}
                 </div>
 
+                {{-- Результаты теста --}}
+                @if(session('test_result'))
+                    <div class="mt-6 p-4 bg-blue-100 border border-blue-200 text-blue-800 rounded-lg shadow-sm">
+                        <h4 class="font-semibold text-lg mb-2">Тест нәтижесі:</h4>
+                        <p>Сіз {{ session('test_result.score') }} / {{ session('test_result.total') }} дұрыс жауап бердіңіз.</p>
+                    </div>
+                @endif
+
                 {{-- Раздел компилятора --}}
                 <div class="mt-12 p-6 bg-gray-100 rounded-lg shadow-inner">
                     <h3 class="text-2xl font-semibold mb-4 text-gray-800">Код жаттықтырушы</h3>
