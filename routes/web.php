@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserProgressController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CompilerController;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/', function () {
     return view('index');
@@ -72,6 +73,7 @@ Route::get('/verify-certificate/{certificateNumber}', [CertificateController::cl
 Route::middleware('auth')->group(function () {
     Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
     Route::get('/admin/users',[AdminController::class,'users'])->name('admin.users');
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.new_dashboard');
     Route::get('/admin/courses',[AdminController::class,'courses'])->name('admin.courses');
     Route::get('/admin/courses/show/{id}',[AdminController::class,'coursesShow'])->name('admin.coursesShow');
     Route::post('/admin/course/{course}/training-program',[AdminController::class,'courseTrainingProgram'])->name('admin.courseTrainingProgram');
