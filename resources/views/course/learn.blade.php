@@ -98,6 +98,28 @@
                     </div>
                 </div>
 
+                {{-- Раздел тестов --}}
+                <div class="mt-12 p-6 bg-white rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Тесттер</h3>
+                    @forelse($course->trainingPrograms as $program)
+                        @if($program->testQuestions->isNotEmpty())
+                            <div class="mb-6 p-4 border border-gray-200 rounded-lg">
+                                <h4 class="text-xl font-semibold mb-3 text-gray-700">{{ $program->name }} тесттері:</h4>
+                                <ul class="list-disc pl-5 space-y-2">
+                                    @foreach($program->testQuestions as $testQuestion)
+                                        <li>
+                                            <p class="text-gray-800">{{ $testQuestion->question }}</p>
+                                            <a href="{{ route('test.show', $program->id) }}" class="text-blue-600 hover:text-blue-800 text-sm">Тестті бастау</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    @empty
+                        <p class="text-gray-600">Бұл курста тесттер әлі жоқ.</p>
+                    @endforelse
+                </div>
+
                 {{-- Кнопка "Урок завершен" перемещена ниже компилятора --}}
                 <div class="mt-6 text-center">
                     <button id="mark-lesson-completed-btn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed">

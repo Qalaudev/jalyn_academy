@@ -143,7 +143,7 @@ class CourseController extends Controller
 
     public function courseLearn($id)
     {
-        $course = Course::with('trainingPrograms.menus')->findOrFail($id);
+        $course = Course::with(['trainingPrograms.menus', 'trainingPrograms.testQuestions'])->findOrFail($id);
         $user = auth()->user();
 
         $userProgress = UserProgress::firstOrCreate(
